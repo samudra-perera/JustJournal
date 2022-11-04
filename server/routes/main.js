@@ -4,9 +4,9 @@ const authController = require('../controllers/auth');
 const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
 //Main Routes - simplified for now
-router.get('/api/dashboard', ensureAuth, '')
-router.post("/login", authController.postLogin);
-router.get("/logout", authController.logout);
+// router.get('/api/dashboard', ensureAuth, '')
+router.post("/login", authController.postLogin);        //Login works 
+router.get("/logout", authController.logout);           //Apparently Works as well
 router.post("/signup", authController.postSignup);      //User creation ... works on postman
 
 module.exports = router;

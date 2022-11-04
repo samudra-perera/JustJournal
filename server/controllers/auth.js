@@ -11,7 +11,7 @@ exports.postLogin = (req, res, next) => {
 
   if (validationErrors.length) {
     req.flash("errors", validationErrors);
-    return res.json({message: req.flash()});
+    return res.json({ message: req.flash() });
   }
   req.body.email = validator.normalizeEmail(req.body.email, {
     gmail_remove_dots: false,
@@ -23,27 +23,28 @@ exports.postLogin = (req, res, next) => {
     }
     if (!user) {
       req.flash("errors", info);
-      return res.json({message: req.flash()});
+      return res.json({ message: req.flash() });
     }
     req.logIn(user, (err) => {
       if (err) {
         return next(err);
       }
       req.flash("success", { msg: "Success! You are logged in." });
-      res.json({user, message: req.flash()});
+      res.json({ user, message: req.flash() });
     });
   })(req, res, next);
 };
 
 exports.logout = (req, res) => {
   req.logout(() => {
-    console.log('User has logged out.')
-  })
+    console.log("User has logged out.");
+  });
   req.session.destroy((err) => {
     if (err)
       console.log("Error : Failed to destroy the session during logout.", err);
     req.user = null;
     res.redirect("/");
+    // return res.json({ message: "User has logged out." });
   });
 };
 
@@ -60,7 +61,7 @@ exports.postSignup = (req, res, next) => {
 
   if (validationErrors.length) {
     req.flash("errors", validationErrors);
-    return res.json({message: req.flash()});
+    return res.json({ message: req.flash() });
   }
   req.body.email = validator.normalizeEmail(req.body.email, {
     gmail_remove_dots: false,
@@ -82,7 +83,10 @@ exports.postSignup = (req, res, next) => {
         req.flash("errors", {
           msg: "Account with that email address or username already exists.",
         });
-        return res.json({message: "Account with that email address or username already exists."});
+        return res.json({
+          message:
+            "Account with that email address or username already exists.",
+        });
       }
       user.save((err) => {
         if (err) {
@@ -93,7 +97,7 @@ exports.postSignup = (req, res, next) => {
             return next(err);
           }
           res.json({
-            message: 'User was added'
+            message: "User was added",
           });
         });
       });
