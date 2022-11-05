@@ -3,3 +3,7 @@ const router = express.Router();
 const upload = require('../middleware/multer')
 const journalController = require('../controllers/Journal')
 const {ensureAuth, ensureGuest} = require('../middleware/auth')
+
+router.post('/createJournal', journalController.createJournal)
+
+module.exports = router
