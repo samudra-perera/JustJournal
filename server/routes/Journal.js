@@ -5,5 +5,5 @@ const journalController = require('../controllers/Journal')
 const {ensureAuth, ensureGuest} = require('../middleware/auth')
 
 router.post('/createJournal', journalController.createJournal)
-
+router.get('/:id', journalController.getJournal)
 module.exports = router
