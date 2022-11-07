@@ -5,4 +5,8 @@ const ProfileSchema = new mongoose.Schema({
   lastName: { type: String, required: true },
   bio: { type: String },
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  cloudinaryID: {
+    type: String,
+    required: false,
+  },
 });

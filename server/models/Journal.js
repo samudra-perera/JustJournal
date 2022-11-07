@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const JournalSchema = new mongoose.Schema({
+  title: {
+    type: String, 
+    required: false,
+  },
   posPromptOne: {
     type: String,
     required: true,
@@ -28,6 +32,11 @@ const JournalSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
+  },
+  isPublic: {
+    type: Boolean,
+    default: false,
+    required: true
   },
   likes: {
     type: Number,
