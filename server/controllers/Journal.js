@@ -49,5 +49,16 @@ module.exports = {
         } catch (err) {
             console.log(err)
         }
+    },
+    //Delete a specific Journal Entry 
+    //DELETE 
+    // api/journal/deleteJournal/:id
+    deleteJournal: async(req, res) => {
+        try {
+            await Journal.findByIdAndDelete({_id: req.params.id})
+            res.json('Deleted Journal')
+        } catch (err) {
+            console.log(err)
+        }
     }
 }
