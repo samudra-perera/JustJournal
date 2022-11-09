@@ -12,11 +12,11 @@ const CommentSchema = new mongoose.Schema({
     type: String,
     require: true
   }, 
-  postID: {
+  journalID: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Journal"
   }
 });
 
 
-module.exports = mongoose.model("Comment", CommmentSchema);
+module.exports = mongoose.model("Comment", CommentSchema);

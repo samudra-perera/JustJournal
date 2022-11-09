@@ -8,5 +8,5 @@ const commentController = require('../controllers/comment')
 router.post('/createJournal', journalController.createJournal)
 router.get('/:id', journalController.getJournal)
 router.delete('/deleteJournal/:id', journalController.deleteJournal)
-router.post('/addComment', commentController.addComment)
+router.post('/addComment/:journal', commentController.createComment)
 module.exports = router
