@@ -3,8 +3,8 @@ const User = require('../models/User')
 const Journal = require('../models/Journal')
 
 module.exports = {
-    ///api/journal/addComment
-    //Adding comment to Journals
+    ///api/journal/addComment/:journal
+    //Adding comment to Journals/
     //POST
     createComment: async(req,res) => {
         try {
