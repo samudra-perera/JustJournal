@@ -8,6 +8,8 @@ import ErrorPage from './pages/ErrorPage';
 import Dashboard from './pages/Dashboard';
 import JournalList from './components/JournalList';
 import JournalPage from './pages/JournalPage';
+import ProtectedRoute from './ProtectedRoute';
+import ProfileCreation from './pages/ProfileCreation';
 
 const router = createBrowserRouter([
   {
@@ -22,23 +24,27 @@ const router = createBrowserRouter([
     {
       path: 'signup',
       element: <Signup/>,
-    }
+    },
   ], 
 },
 {
   path: '/dashboard',
-  element: <Dashboard/>,
+  element: <ProtectedRoute><Dashboard/></ProtectedRoute>,
   errorElement: <ErrorPage/>,
   children: [
     {
       path: 'journals',
       element: <JournalList/>
-    }
+    },
+    {
+      path: 'journals/:id',
+      element: <JournalPage />
+    },
   ]
 }, 
 {
-  path: '/journals/:id',
-  element: <JournalPage />
+  path: '/profile', 
+  element: <ProfileCreation/>
 }
 ])
 
