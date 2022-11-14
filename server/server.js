@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+const cors = require('cors')
 const passport = require("passport");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
@@ -31,7 +32,10 @@ connectDB();
 //Body Parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
+app.use(cors({
+  origin: process.env.ORIGIN_URL,  //Location of the react application
+  credentials: true
+}))
 //Logging
 app.use(logger("dev"));
 
@@ -62,5 +66,5 @@ app.use('/api/journal', journalRoutes)
 
 //Server Running
 app.listen(process.env.PORT, () => {
-  console.log("Server is running, you better catch it!");
+  console.log(`Server is running on PORT ${process.env.PORT}, you better catch it!`);
 });

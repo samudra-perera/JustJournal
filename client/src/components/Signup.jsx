@@ -1,57 +1,70 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import axios from "axios";
 //The signup page is gonna send the data for the user Schema and the profile Schema
 //In a seperate page within the dashboard the user will be able to add things to their profile ie bio, picture etc
 
 const Signup = () => {
-  //Email States 
-  const [email, setEmail] = useState('')
-  
+  //Email States
+  const [email, setEmail] = useState("");
   //User States
-  const [username, setUsername] = useState('')
-
+  const [username, setUsername] = useState("");
   //Password States
-  const [password, setPassword] = useState('')
-
+  const [password, setPassword] = useState("");
   //Confirm Password States
-  const [matchPassword, setMatchPassword] = useState('')
+  const [matchPassword, setMatchPassword] = useState("");
 
   const navigate = useNavigate();
+  //createUser API Request
+  const createUser = async () => {
+    try {
+      const res = await axios.post(process.env.REACT_APP_API_URL + "/signup", {
+        email: email,
+        userName: username,
+        password: password,
+        confirmPassword: matchPassword,
+      });
+      console.log(res.data);
+      //If the respose has user added
+      //When the sign up is completed send the user to the profile creation page
+      // navigate("/profile");
+      if (res.data.status === 200) {
+        navigate("/profile");
+      }
+    } catch (err) {
+      console.log(err);
+      //If the sign up does not pass send the user back to the signup page with an error of the issue (ie: user already exists etc;)
+      // navigate('/signup')
+      navigate("/signup");
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    //If the respose has user added
-    //When the sign up is completed send the user to the profile creation page
-    navigate("/profile");
-
-    //If the sign up does not pass send the user back to the signup page with an error of the issue (ie: user already exists etc;)
-    navigate('/signup')
-    //
+    createUser();
   };
 
   //Setting the state of the email
   useEffect(() => {
-    console.log(email)
-    setEmail(email)
-  }, [email])
+    console.log(email);
+    setEmail(email);
+  }, [email]);
 
   //Setting the state of the username
   useEffect(() => {
-    console.log(username)
-    setUsername(username)  //Set the state
-  },[username])
+    console.log(username);
+    setUsername(username); //Set the state
+  }, [username]);
 
   //Setting the state of the password
   useEffect(() => {
-    setPassword(password)
-  }, [password])
+    setPassword(password);
+  }, [password]);
 
   //Setting the state of the matchpassword
   useEffect(() => {
-    setMatchPassword(matchPassword) //The password validation is done on the serverside using the Auth controllers (post signup)
-  }, [matchPassword])
-
+    setMatchPassword(matchPassword); //The password validation is done on the serverside using the Auth controllers (post signup)
+  }, [matchPassword]);
 
   //Sending the POST request
 
@@ -66,7 +79,7 @@ const Signup = () => {
             type="email"
             className="form-control"
             name="email"
-            autoComplete='off'
+            autoComplete="off"
             onChange={(e) => setEmail(e.target.value)}
             required
             placeholder="name@example.com"
@@ -101,10 +114,10 @@ const Signup = () => {
           <input
             type="password"
             className="form-control"
-            name="confirmPassword"
+            name="matchPassword"
             required
             autoComplete="off"
-            onChange={(e)=>setMatchPassword(e.target.value)}
+            onChange={(e) => setMatchPassword(e.target.value)}
             placeholder="Confirm Password"
           />
           <label htmlFor="matchPassword">Confirm Password</label>
