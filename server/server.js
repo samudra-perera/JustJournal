@@ -45,6 +45,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    //cookie: {secure: true}
   })
 );
 

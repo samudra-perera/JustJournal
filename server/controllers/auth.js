@@ -2,7 +2,11 @@ const passport = require("passport");
 const validator = require("validator");
 const User = require("../models/User");
 
+//POST
+// /login
+// To get the login of a user
 exports.postLogin = (req, res, next) => {
+  //Form Validation Errors
   const validationErrors = [];
   if (!validator.isEmail(req.body.email))
     validationErrors.push({ msg: "Please enter a valid email address." });
@@ -43,8 +47,8 @@ exports.logout = (req, res) => {
     if (err)
       console.log("Error : Failed to destroy the session during logout.", err);
     req.user = null;
-    res.redirect("/");
-    // return res.json({ message: "User has logged out." });
+    //res.redirect("/");
+    return res.json({ message: "User has logged out." });
   });
 };
 
@@ -61,7 +65,7 @@ exports.postSignup = (req, res, next) => {
 
   if (validationErrors.length) {
     req.flash("errors", validationErrors);
-    return res.json({ message: req.flash() });
+    return res.status(404).json({ message: req.flash(), status: 404 });
   }
   req.body.email = validator.normalizeEmail(req.body.email, {
     gmail_remove_dots: false,
@@ -83,9 +87,10 @@ exports.postSignup = (req, res, next) => {
         req.flash("errors", {
           msg: "Account with that email address or username already exists.",
         });
-        return res.json({
+        return res.status(404).json({
           message:
             "Account with that email address or username already exists.",
+          status: 404
         });
       }
       user.save((err) => {
@@ -96,9 +101,8 @@ exports.postSignup = (req, res, next) => {
           if (err) {
             return next(err);
           }
-          res.json({
-            message: "User was added",
-          });
+          console.log('User was added')
+          res.status(200).json({user, status:200});
         });
       });
     }

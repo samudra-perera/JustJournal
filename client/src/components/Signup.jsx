@@ -1,22 +1,60 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 //The signup page is gonna send the data for the user Schema and the profile Schema
 //In a seperate page within the dashboard the user will be able to add things to their profile ie bio, picture etc
 
-
 const Signup = () => {
-  const navigate = useNavigate()
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  //Email States 
+  const [email, setEmail] = useState('')
+  
+  //User States
+  const [username, setUsername] = useState('')
 
+  //Password States
+  const [password, setPassword] = useState('')
+
+  //Confirm Password States
+  const [matchPassword, setMatchPassword] = useState('')
+
+  const navigate = useNavigate();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    //If the respose has user added
     //When the sign up is completed send the user to the profile creation page
-    navigate('/profile')
+    navigate("/profile");
 
     //If the sign up does not pass send the user back to the signup page with an error of the issue (ie: user already exists etc;)
-
+    navigate('/signup')
     //
-  }
+  };
+
+  //Setting the state of the email
+  useEffect(() => {
+    console.log(email)
+    setEmail(email)
+  }, [email])
+
+  //Setting the state of the username
+  useEffect(() => {
+    console.log(username)
+    setUsername(username)  //Set the state
+  },[username])
+
+  //Setting the state of the password
+  useEffect(() => {
+    setPassword(password)
+  }, [password])
+
+  //Setting the state of the matchpassword
+  useEffect(() => {
+    setMatchPassword(matchPassword) //The password validation is done on the serverside using the Auth controllers (post signup)
+  }, [matchPassword])
+
+
+  //Sending the POST request
+
   return (
     <div className="col-md-10 mx-auto col-lg-5">
       <form
@@ -27,19 +65,49 @@ const Signup = () => {
           <input
             type="email"
             className="form-control"
-            id="floatingInput"
+            name="email"
+            autoComplete='off'
+            onChange={(e) => setEmail(e.target.value)}
+            required
             placeholder="name@example.com"
           />
-          <label htmlFor="floatingInput">Email address</label>
+          <label htmlFor="email">Email address</label>
+        </div>
+        <div className="form-floating mb-3">
+          <input
+            type="text"
+            className="form-control"
+            name="username"
+            autoComplete="off"
+            onChange={(e) => setUsername(e.target.value)}
+            required
+            placeholder="name@example.com"
+          />
+          <label htmlFor="username">Username</label>
         </div>
         <div className="form-floating mb-3">
           <input
             type="password"
             className="form-control"
-            id="floatingPassword"
+            name="password"
+            required
+            autoComplete="off"
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
           />
-          <label htmlFor="floatingPassword">Password</label>
+          <label htmlFor="password">Password</label>
+        </div>
+        <div className="form-floating mb-3">
+          <input
+            type="password"
+            className="form-control"
+            name="confirmPassword"
+            required
+            autoComplete="off"
+            onChange={(e)=>setMatchPassword(e.target.value)}
+            placeholder="Confirm Password"
+          />
+          <label htmlFor="matchPassword">Confirm Password</label>
         </div>
         <div className="checkbox mb-3">
           <label>
