@@ -43,8 +43,8 @@ module.exports = {
     // url/dashboard
     getUserFeed: async(req, res) => {
         try {
-            const user = await User.findOne({userName: req.params.userName})
-            const journals = await Journal.find({user: user.id}).sort({createAt: 'desc'})
+            //const user = await User.findById({id: req.user})    //change to req.user
+            const journals = await Journal.find({user: req.user}).sort({createAt: 'desc'})
             res.json(journals)
         } catch (err) {
             console.log(err)

@@ -11,7 +11,7 @@ router.post("/login", authController.postLogin);        //Login works
 router.get("/logout", authController.logout);           //Apparently Works as well destroying the current session
 router.get('/user', authController.getUser)
 router.post("/signup", authController.postSignup);      //User creation ... works on postman
-router.get('/dashboard/:userName', ensureAuth, journalController.getUserFeed)
+router.get('/dashboard', ensureAuth, journalController.getUserFeed)
 router.get('/getProfile/:userName', ensureAuth, profile.getProfile)
 router.post('/createProfile', profile.createProfile)
 
