@@ -15,7 +15,7 @@ exports.postLogin = (req, res, next) => {
 
   if (validationErrors.length) {
     req.flash("errors", validationErrors);
-    return res.json({ message: req.flash() });
+    return res.status(404).json({ message: req.flash(), status: 404 });
   }
   req.body.email = validator.normalizeEmail(req.body.email, {
     gmail_remove_dots: false,
@@ -27,14 +27,14 @@ exports.postLogin = (req, res, next) => {
     }
     if (!user) {
       req.flash("errors", info);
-      return res.json({ message: req.flash() });
+      return res.status(404).json({ message: req.flash(), status: 404 });
     }
     req.logIn(user, (err) => {
       if (err) {
         return next(err);
       }
       req.flash("success", { msg: "Success! You are logged in." });
-      res.json({ user, message: req.flash() });
+      return res.json({ user, message: req.flash(), status: 200 });
     });
   })(req, res, next);
 };
@@ -108,3 +108,9 @@ exports.postSignup = (req, res, next) => {
     }
   );
 };
+
+exports.getUser = (req, res, next) => {
+  if(req.user) {
+    res.json(res.user)
+  }
+}

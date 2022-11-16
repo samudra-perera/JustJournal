@@ -34,7 +34,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors({
   origin: process.env.ORIGIN_URL,  //Location of the react application
-  credentials: true
+  credentials: true   //Allows session cookies to pass through
 }))
 //Logging
 app.use(logger("dev"));

@@ -18,12 +18,18 @@ const Signup = () => {
   //createUser API Request
   const createUser = async () => {
     try {
-      const res = await axios.post(process.env.REACT_APP_API_URL + "/signup", {
-        email: email,
-        userName: username,
-        password: password,
-        confirmPassword: matchPassword,
-      });
+      const res = await axios.post(
+        process.env.REACT_APP_API_URL + "/signup",
+        {
+          email: email,
+          userName: username,
+          password: password,
+          confirmPassword: matchPassword,
+        },
+        {
+          withCredentials: true,
+        }
+      );
       console.log(res.data);
       //If the respose has user added
       //When the sign up is completed send the user to the profile creation page
@@ -46,13 +52,11 @@ const Signup = () => {
 
   //Setting the state of the email
   useEffect(() => {
-    console.log(email);
     setEmail(email);
   }, [email]);
 
   //Setting the state of the username
   useEffect(() => {
-    console.log(username);
     setUsername(username); //Set the state
   }, [username]);
 
@@ -132,7 +136,7 @@ const Signup = () => {
         </button>
         <hr className="my-4" />
         <small className="text-muted">
-          Alread have an account? Click <Link to="/">Here</Link> to go back!
+          Already have an account? Click <Link to="/">Here</Link> to go back!
         </small>
       </form>
     </div>
