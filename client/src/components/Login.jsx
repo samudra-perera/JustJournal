@@ -24,12 +24,12 @@ const Login = () => {
         }
       );
       console.log(res.data);
-      if(res.data.status === 200) {
-        navigate('/dashboard')
-      } 
+      if (res.data.status === 200) {
+        navigate("/dashboard");
+      }
     } catch (err) {
-      console.log(err)
-      navigate('/')
+      console.log(err);
+      navigate("/");
     }
   };
 
@@ -45,13 +45,13 @@ const Login = () => {
 
   //Setting the state of the email
   useEffect(() => {
-    setEmail(email)
-  }, [email])
+    setEmail(email);
+  }, [email]);
 
   //Setting the state of the password
   useEffect(() => {
-    setPassword(password)
-  }, [password])
+    setPassword(password);
+  }, [password]);
 
   return (
     <div className="col-md-10 mx-auto col-lg-5">

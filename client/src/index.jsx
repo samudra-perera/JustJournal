@@ -10,6 +10,7 @@ import JournalList from './components/JournalList';
 import JournalPage from './pages/JournalPage';
 import ProtectedRoute from './ProtectedRoute';
 import ProfileCreation from './pages/ProfileCreation';
+import CreateJournal from './components/CreateJournal';
 
 const router = createBrowserRouter([
   {
@@ -37,14 +38,22 @@ const router = createBrowserRouter([
       element: <JournalList/>
     },
     {
-      path: 'journals/:id',
-      element: <JournalPage />
-    },
+      path: 'createJournal',
+      element: <CreateJournal/>
+    }
+    // {
+    //   path: 'journals/:id',
+    //   element: <JournalPage />
+    // },
   ]
 }, 
 {
   path: '/profile', 
   element: <ProfileCreation/>
+},
+{
+  path: 'journals/:id',
+  element: <JournalPage />
 }
 ])
 
