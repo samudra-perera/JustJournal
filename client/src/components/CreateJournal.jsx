@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, renderMatches, useNavigate } from "react-router-dom";
 
 const CreateJournal = () => {
   //States for the form inputs
@@ -10,16 +10,19 @@ const CreateJournal = () => {
   const [promptThree, setPromptThree] = useState("");
   const [improvement, setImprovement] = useState("");
   const [isPublic, setIsPublic] = useState("0");
+  const [file, setFile] = useState('')
+  const [image, setImage] = useState('')
 
   //Navigation Var
   const navigate = useNavigate();
 
-  //createJounral API Request
+  //createJournal API Request
   const createJournal = async () => {
     try {
       const res = await axios.post(
         process.env.REACT_APP_API_URL + "/api/journal/createJournal",
         {
+          image: image,
           title: title,
           posPromptOne: promptOne,
           posPromptTwo: promptTwo,
@@ -44,10 +47,45 @@ const CreateJournal = () => {
     createJournal();
   };
 
+  //Helper function to set the image as a URL to send as a req.body instead of req.file
+  const previewFile = (file) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+
+    reader.onloadend = () => {
+      setImage(reader.result)
+    }
+    console.log(image)
+  }
+
   //Setting the state of the inputs
   useEffect(() => {
     setTitle(title);
   }, [title]);
+
+  useEffect(() => {
+    setPromptOne(promptOne)
+  }, [promptOne])
+
+  useEffect(() => {
+    setPromptTwo(promptTwo)
+  }, [promptTwo])
+
+  useEffect(() => {
+    setPromptThree(promptThree)
+  }, [promptThree])
+
+  useEffect(() => {
+    setImprovement(improvement)
+  }, [improvement])
+
+  useEffect(() => {
+    setIsPublic(isPublic)
+  }, [isPublic])
+
+  useEffect(() => {
+    setFile(file)
+  }, [file])
 
   return (
     <div>
@@ -121,6 +159,11 @@ const CreateJournal = () => {
             id="imageUpload"
             type="file"
             name="file"
+            accept="image/png, image/jpeg, image/jpg, image/PNG"
+            onChange={(e)=> {
+              setFile(e.target.files[0])
+              previewFile(e.target.files[0])
+            }}
           />
         </div>
         <div className="mb-3">

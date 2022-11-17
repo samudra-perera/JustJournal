@@ -43,6 +43,10 @@ const JournalSchema = new mongoose.Schema({
   likes: {
     type: Number,
   },
+  imageURL : {
+    type: String,
+    required: true
+  }
 });
 
 module.exports = mongoose.model("Journal", JournalSchema);

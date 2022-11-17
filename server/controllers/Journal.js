@@ -9,8 +9,8 @@ module.exports = {
     //url/api/journal/createJournal
     createJournal: async (req, res) => {
         try {
-            const result = await cloudinary.uploader.upload(req.file.path)
-            const { title, posPromptOne, posPromptTwo, posPromptThree, improvPrompt, isPublic } = req.body
+            const { title, posPromptOne, posPromptTwo, posPromptThree, improvPrompt, isPublic, image } = req.body
+            const result = await cloudinary.uploader.upload(image)
             const journal = await Journal.create({
                 title: title,
                 posPromptOne: posPromptOne,
@@ -19,6 +19,7 @@ module.exports = {
                 improvPrompt: improvPrompt,
                 isPublic: isPublic == '1' ? true : false,    //if the string is true set isPublic to true 
                 cloudinaryID: result.public_id,
+                imageURL: result.secure_url,
                 user: req.user, 
                 likes: 0
             })
