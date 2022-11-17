@@ -5,6 +5,7 @@ const cors = require('cors')
 const passport = require("passport");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
+const path = require('path')
 const methodOverride = require("method-override");
 const flash = require("express-flash");
 const logger = require("morgan");

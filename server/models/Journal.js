@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+//Add the mood choice option within this model
+
 const JournalSchema = new mongoose.Schema({
   title: {
     type: String, 

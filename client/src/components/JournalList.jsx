@@ -25,15 +25,17 @@ const JournalList = () => {
 
   return (
     <div>
-        {data.map((journal) => {
-          return <JournalCard 
-          createdAt={journal.createdAt} 
-          title={journal.title}
-          posPromptOne={journal.posPromptOne}
-          key={journal._id}
-          id={journal._id}
-          />;
-        })}
+      {data.map((journal) => {
+        return (
+          <JournalCard
+            createdAt={journal.createdAt}
+            title={journal.title}
+            posPromptOne={journal.posPromptOne}
+            key={journal._id}
+            id={journal._id}
+          />
+        );
+      })}
     </div>
   );
 };
