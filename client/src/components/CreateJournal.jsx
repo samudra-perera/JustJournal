@@ -34,7 +34,6 @@ const CreateJournal = () => {
           withCredentials: true,
         }
       );
-
       console.log(res.data);
     } catch (err) {
       console.log(err);

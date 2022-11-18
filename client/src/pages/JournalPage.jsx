@@ -1,10 +1,49 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import CommentsList from "../components/CommentsList";
 
-//Get Request to server in order to get the Journal Contents
+//GET Request to server in order to get the Journal Contents
+
 const JournalPage = () => {
-  return (
-    <div>JournalPage</div>
-  )
-}
+  //States for the data to be stored from the API call
+  const [journal, setJournal] = useState([]);
+  const [user, setUser] = useState([])
+  // id of the journals taken from the parameters
+  const { id } = useParams();
+  
+  //API call to get a single journal page
+  useEffect(() => {
+    const getJournal = async () => {
+      try {
+        const res = await axios.get(
+          process.env.REACT_APP_API_URL + `/api/journal/${id}`,
+          {
+            withCredentials: true,
+          }
+        );
+        setJournal(res.data.journal);
+        setUser(res.data.user)
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getJournal();
+  }, []);
 
-export default JournalPage
+  return (
+    <div>
+      <h3>{journal.title}</h3>
+      <span>{journal.createdAt}</span>
+      <span> By: {user.userName}</span>
+      <p>{journal.posPromptOne}</p>
+      <p>{journal.posPromptTwo}</p>
+      <p>{journal.posPromptThree}</p>
+      <p>{journal.improvPrompt}</p>
+      <img src={journal.imageURL}/>
+      <CommentsList />
+    </div>
+  );
+};
+
+export default JournalPage;

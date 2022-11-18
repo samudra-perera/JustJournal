@@ -15,7 +15,11 @@ const CommentSchema = new mongoose.Schema({
   journalID: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Journal"
-  }
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 

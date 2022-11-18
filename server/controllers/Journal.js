@@ -1,6 +1,6 @@
 const Journal = require('../models/Journal')
 // const path = require('path')
-// const User = require('../models/User')
+const User = require('../models/User')
 const cloudinary = require('../middleware/cloudinary')
 
 module.exports = {
@@ -35,7 +35,8 @@ module.exports = {
     getJournal: async(req, res) => {
         try {
             const journal = await Journal.findById(req.params.id);
-            res.json(journal)
+            const user = await User.findById(journal.user)
+            res.json({journal: journal, user: user})
         } catch (err) {
             console.log(err)
         }
@@ -59,6 +60,13 @@ module.exports = {
         try {
             await Journal.findByIdAndDelete({_id: req.params.id})
             res.json('Deleted Journal')
+        } catch (err) {
+            console.log(err)
+        }
+    },
+    updateJournal: async(req, res) => {
+        try {
+            
         } catch (err) {
             console.log(err)
         }
