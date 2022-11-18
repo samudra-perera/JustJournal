@@ -28,7 +28,19 @@ const CommentsList = () => {
     getComment()
   }, []);
 
-  return <div><Comments/></div>;
+  return (
+    <div>
+        {comments.map((comment) => {
+            return (
+                <Comments 
+                userName={comment.userName}
+                comment={comment.comment}
+                key={comment._id}
+            />
+            )
+        })}
+    </div>
+  )
 };
 
 export default CommentsList;

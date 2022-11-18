@@ -1,10 +1,20 @@
-import React from 'react'
-import { useParams } from 'react-router-dom'
+import React from "react";
 
-const Comments = () => {
+
+const styles = {
+  maxWidth: "18rem",
+};
+
+const Comments = (props) => {
+  const { userName, comment, id } = props;
   return (
-    <div>Comments</div>
-  )
-}
+    <div className="card border-primary mb-3" style={styles} key={id}>
+      <div className="card-header">{userName}</div>
+      <div className="card-body text-primary">
+        <p className="card-text">{comment}</p>
+      </div>
+    </div>
+  );
+};
 
-export default Comments
+export default Comments;
