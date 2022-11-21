@@ -58,7 +58,12 @@ module.exports = {
     // api/journal/deleteJournal/:id
     deleteJournal: async(req, res) => {
         try {
-            await Journal.findByIdAndDelete({_id: req.params.id})
+            //Find Journal
+            let journal = await Journal.findById({_id: req.params.id})
+            //Delete image from cloudinary
+            await cloudinary.uploader.destroy(journal.cloudinaryID)
+            //Delete Post from DB
+            await Journal.remove({_id: req.params.id})
             res.json('Deleted Journal')
         } catch (err) {
             console.log(err)

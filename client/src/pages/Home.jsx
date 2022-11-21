@@ -23,17 +23,3 @@ const Home = () => {
 
 export default Home;
 
-{
-  /* <div>
-<div>
-  Home
-</div>
-<div>
-  <Link to='/dashboard'>Login</Link>
-  <Link to='/signup'>Signup</Link>
-</div>
-<div>
-  <Outlet/>
-</div>
-</div> */
-}
