@@ -62,8 +62,10 @@ module.exports = {
             let journal = await Journal.findById({_id: req.params.id})
             //Delete image from cloudinary
             await cloudinary.uploader.destroy(journal.cloudinaryID)
+            //Need to delete any comments that have this JournalID
+
             //Delete Post from DB
-            await Journal.remove({_id: req.params.id})
+            await Journal.deleteOne({_id: req.params.id})
             res.json('Deleted Journal')
         } catch (err) {
             console.log(err)

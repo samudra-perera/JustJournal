@@ -10,4 +10,5 @@ router.get('/:id', ensureAuth, journalController.getJournal)
 router.delete('/deleteJournal/:id', ensureAuth, journalController.deleteJournal)
 router.post('/addComment/:id', ensureAuth, commentController.createComment)
 router.get('/getComments/:id', ensureAuth, commentController.getComment)
+router.delete('/deleteComment/:id', ensureAuth, commentController.deleteComment)
 module.exports = router

@@ -8,8 +8,8 @@ module.exports = {
     //POST
     createComment: async(req,res) => {
         try {
-            const {comment, user} = req.body
-            const temp = await User.findById({_id: user}) //Temp variable to get the user object for the specific user
+            const {comment} = req.body
+            const temp = await User.findById({_id: req.user.id}) //Temp variable to get the user object for the specific user
             const userComment = await Comment.create({
                 user: req.user.id,
                 comment: comment,
@@ -17,6 +17,7 @@ module.exports = {
                 userName: temp.userName
             })
             res.json(userComment)
+            // console.log(req.params.id)
         } catch (err) {
             console.log(err)
         }
@@ -28,8 +29,16 @@ module.exports = {
         } catch (err) {
             console.log(err)
         }
-    }
+    },
     //If the user created a comment they should be able to delete them, the owner of the journals should be able to delete them too
     //Check if the user attempting to delete the comment is the user who commented or is the user who is the owner of the Journal
     //If it is either Delete the comment
+    deleteComment: async(req, res) => {
+        try {
+            let comment = await Comment.findById({_id: req.params.id})
+            res.json(comment)
+        } catch (err) {
+            console.log(err)
+        }
+    }
 }
