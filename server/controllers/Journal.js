@@ -1,4 +1,5 @@
 const Journal = require('../models/Journal')
+const Comment = require('../models/Comment')
 // const path = require('path')
 const User = require('../models/User')
 const cloudinary = require('../middleware/cloudinary')
@@ -62,8 +63,8 @@ module.exports = {
             let journal = await Journal.findById({_id: req.params.id})
             //Delete image from cloudinary
             await cloudinary.uploader.destroy(journal.cloudinaryID)
-            //Need to delete any comments that have this JournalID
-
+            //Need to delete any comments that have this JournalID associated with them
+            
             //Delete Post from DB
             await Journal.deleteOne({_id: req.params.id})
             res.json('Deleted Journal')

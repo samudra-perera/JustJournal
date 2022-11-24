@@ -36,6 +36,7 @@ const CommentsList = () => {
                 userName={comment.userName}
                 comment={comment.comment}
                 key={comment._id}
+                id={comment._id}
             />
             )
         })}
