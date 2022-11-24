@@ -23,7 +23,7 @@ module.exports = {
     }
   },
   //GET
-
+  //Gets all the comments based on the journalID
   //api/jorunal/getComments/:id
   getComment: async (req, res) => {
     try {
@@ -36,6 +36,8 @@ module.exports = {
   //If the user created a comment they should be able to delete them, the owner of the journals should be able to delete them too
   //Check if the user attempting to delete the comment is the user who commented or is the user who is the owner of the Journal
   //If it is either Delete the comment
+  //DELETE
+  //api/journal/deleteComment/:id
   deleteComment: async (req, res) => {
     try {
       let comment = await Comment.find({ _id: req.params.id });

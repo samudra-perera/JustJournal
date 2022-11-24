@@ -8,7 +8,7 @@ const profile = require("../controllers/profile");
 //Main Routes - simplified for now
 // router.get('/api/dashboard', ensureAuth, '')
 router.post("/login", authController.postLogin);        //Login works 
-router.get("/logout", authController.logout);           //Apparently Works as well destroying the current session
+router.get("/logout", ensureAuth, authController.logout);           //Apparently Works as well destroying the current session
 router.get('/user', authController.getUser)
 router.post("/signup", authController.postSignup);      //User creation ... works on postman
 router.get('/dashboard', ensureAuth, journalController.getUserFeed)

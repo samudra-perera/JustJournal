@@ -34,6 +34,13 @@ module.exports ={
             console.log(err)
         }
     },
+    editProfile: async(req, res) => {
+        try {
+            
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
     //Update Profile
     //Delete Account //Need the User model for this
