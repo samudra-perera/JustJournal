@@ -1,6 +1,7 @@
 import React from "react";
 import { Outlet, Link } from "react-router-dom";
 import Nav from "../components/Nav";
+import Profile from "../components/Profile";
 
 const Dashboard = () => {
   return (
@@ -8,6 +9,7 @@ const Dashboard = () => {
       <div>Dashboard</div>
       <div>
         <Nav />
+        <Profile />
         <Outlet />
       </div>
     </div>

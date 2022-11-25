@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 const Nav = () => {
+    //Api request to logout user
+    //After response need to redirect the user to the landing page '/'
   const getLogout = async () => {
     try {
       const res = await axios.get(process.env.REACT_APP_API_URL + "/logout", {

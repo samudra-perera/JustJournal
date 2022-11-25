@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+//Need to add logic for followers and following
+
 const ProfileSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
@@ -9,6 +11,10 @@ const ProfileSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  imageURL: {
+    type: String,
+    required: false,
+  },
 });
 
-module.exports = mongoose.model('Profile', ProfileSchema)
+module.exports = mongoose.model("Profile", ProfileSchema);
