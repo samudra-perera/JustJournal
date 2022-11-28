@@ -40,6 +40,9 @@ const JournalCard = (props) => {
         >
           <FontAwesomeIcon icon={faTrash} />
         </button>
+        <h5 className="card-title">
+          <Link to={`/journals/${id}`}>Update</Link>
+        </h5>
       </div>
     </div>
   );

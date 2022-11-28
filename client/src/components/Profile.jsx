@@ -3,7 +3,9 @@ import React, { useEffect, useState } from "react";
 
 const Profile = () => {
   //States for the data to be stored
-  const [profile, setProfile] = useState([]);
+  const [image, setImage] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
 
   //API call to get a single Journal Page
   useEffect(() => {
@@ -16,7 +18,9 @@ const Profile = () => {
           }
         );
         console.log(res.data)
-        setProfile(res.data)
+        setImage(res.data[0].imageURL)
+        setFirstName(res.data[0].firstName)
+        setLastName(res.data[0].lastName)
       } catch (err) {
         console.log(err);
       }
@@ -28,10 +32,10 @@ const Profile = () => {
     <div>
       <div className="card border-primary mb-3">
         <div className="card-header">
-        <img src={profile[0].imageURL} className="img-thumbnail" alt="..."/>
+        <img src={image} className="img-thumbnail" alt="..."/>
         </div>
         <div className="card-body text-primary">
-          <p className="card-text">{profile[0].firstName} {profile[0].lastName}</p>
+          <p className="card-text">{firstName} {lastName}</p>
         </div>
       </div>
     </div>

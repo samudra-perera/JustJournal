@@ -6,6 +6,7 @@ const {ensureAuth, ensureGuest} = require('../middleware/auth')
 const commentController = require('../controllers/comment')
 
 router.post('/createJournal', ensureAuth, journalController.createJournal)
+router.put('/updateJournal/:id', ensureAuth, journalController.updateJournal)
 router.get('/:id', ensureAuth, journalController.getJournal)
 router.delete('/deleteJournal/:id', ensureAuth, journalController.deleteJournal)
 router.post('/addComment/:id', ensureAuth, commentController.createComment)
