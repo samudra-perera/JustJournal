@@ -25,6 +25,7 @@ const JournalPage = () => {
         );
         setJournal(res.data.journal);
         setUser(res.data.user)
+        console.log(res.data.journal)
       } catch (err) {
         console.log(err);
       }

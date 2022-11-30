@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, renderMatches, useNavigate } from "react-router-dom";
+import { Link, renderMatches, useNavigate, useParams } from "react-router-dom";
 
 const CreateJournal = () => {
   //States for the form inputs
@@ -185,10 +185,6 @@ const CreateJournal = () => {
         <button className="w-100 btn btn-lg btn-primary" type="submit">
           Create Entry
         </button>
-        <hr className="my-4" />
-        <small className="text-muted">
-          Already have an account? Click <Link to="/">Here</Link> to go back!
-        </small>
       </form>
     </div>
   );

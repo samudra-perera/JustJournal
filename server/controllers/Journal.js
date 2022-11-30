@@ -84,6 +84,15 @@ module.exports = {
   },
   updateJournal: async (req, res) => {
     try {
+      const {
+        title,
+        posPromptOne,
+        posPromptTwo,
+        posPromptThree,
+        improvPrompt,
+        isPublic,
+      } = req.body;
+
       const editJournal = await Journal.findByIdAndUpdate(
         { _id: req.params.id },
         {
@@ -92,13 +101,14 @@ module.exports = {
           posPromptTwo: posPromptTwo,
           posPromptThree: posPromptThree,
           improvPrompt: improvPrompt,
-          isPublic: isPublic == "1" ? true : false, 
-        }, {
-            new: true,
-            runValidators: true
+          isPublic: isPublic == "1" ? true : false,
+        },
+        {
+          new: true,
+          runValidators: true,
         }
       );
-      res.json(editJournal)
+      res.json(editJournal);
     } catch (err) {
       console.log(err);
     }

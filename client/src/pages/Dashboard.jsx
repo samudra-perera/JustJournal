@@ -6,7 +6,7 @@ import Profile from "../components/Profile";
 const Dashboard = () => {
   return (
     <div>
-      <div>Dashboard</div>
+      <Link to='/dashboard'>Dashboard</Link>
       <div>
         <Nav />
         <Profile />
