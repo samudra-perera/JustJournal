@@ -12,6 +12,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import ProfileCreation from "./pages/ProfileCreation";
 import UpdateJournal from "./components/UpdateJournal";
 import CreateJournal from "./components/CreateJournal";
+import ProfilePage from "./pages/ProfilePage";
 
 const router = createBrowserRouter([
   {
@@ -47,9 +48,9 @@ const router = createBrowserRouter([
         element: <CreateJournal />,
       },
       {
-        path: 'updateJournal/:id',
-        element: <UpdateJournal/>
-      }
+        path: "updateJournal/:id",
+        element: <UpdateJournal />,
+      },
       // {
       //   path: 'journals/:id',
       //   element: <JournalPage />
@@ -65,6 +66,14 @@ const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <JournalPage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "profiles/:id",
+    element: (
+      <ProtectedRoute>
+        <ProfilePage />
       </ProtectedRoute>
     ),
   },

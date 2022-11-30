@@ -1,12 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import EditProfileModal from "./EditProfileModal";
 
 const Profile = () => {
   //States for the data to be stored
   const [image, setImage] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [followers, setFollowers] = useState("");
+  const [following, setFollowing] = useState("");
+  const [journals, setJournals] = useState("");
 
   //API call to get a single Journal Page
   useEffect(() => {
@@ -19,9 +21,12 @@ const Profile = () => {
           }
         );
         console.log(res.data);
-        setImage(res.data[0].imageURL);
-        setFirstName(res.data[0].firstName);
-        setLastName(res.data[0].lastName);
+        setImage(res.data.profiles[0].imageURL);
+        setFirstName(res.data.profiles[0].firstName);
+        setLastName(res.data.profiles[0].lastName);
+        setFollowers(res.data.profiles[0].followers.length);
+        setFollowing(res.data.profiles[0].following.length);
+        setJournals(res.data.numOfJournals);
       } catch (err) {
         console.log(err);
       }
@@ -39,8 +44,10 @@ const Profile = () => {
           <p className="card-text">
             {firstName} {lastName}
           </p>
+          <p>
+            Followers: {followers} Following: {following} Entries: {journals}
+          </p>
         </div>
-        <EditProfileModal firstName={firstName} lastName={lastName}/>
       </div>
     </div>
   );

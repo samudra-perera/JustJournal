@@ -83,6 +83,7 @@ module.exports = {
     }
   },
   updateJournal: async (req, res) => {
+    //Add method to update the image
     try {
       const {
         title,
@@ -113,4 +114,18 @@ module.exports = {
       console.log(err);
     }
   },
+  addLike: async (req,res) => {
+    try {
+        
+    } catch (err) {
+        console.log(err)
+    }
+  },
+  removeLike: async(req, res) => {
+    try {
+        
+    } catch (err) {
+        
+    }
+  }
 };

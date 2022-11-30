@@ -1,18 +1,26 @@
 const Profile = require("../models/Profile");
 const cloudinary = require("../middleware/cloudinary");
-const User = require("../models/User");
+const Journal = require("../models/Journal");
 
 module.exports = {
-  //Get profile information
+  //Get profile information for the user who is logged in
   ///getProfile/:userName
   //GET
   getProfile: async (req, res) => {
     try {
-      const user = await User.findOne({ _id: req.user._id });
-      const profile = await Profile.find({ user: user.id });
-      res.json(profile);
+      //const user = await User.findOne({ _id: req.user._id });
+      const profile = await Profile.find({ user: req.user._id });
+      const journals = await Journal.countDocuments({ user: req.user._id });
+      res.json({profiles: profile, numOfJournals: journals});
     } catch (err) {
       console.log(err);
+    }
+  },
+  getNoneUserProfile: async(req, res) => {
+    try {
+        
+    } catch (err) {
+        console.log(err)
     }
   },
   //Create Profile
@@ -41,6 +49,32 @@ module.exports = {
       console.log(err);
     }
   },
+  followProfile: async (req, res) => {
+    try {
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  unfollowProfile: async (req, res) => {
+    try {
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  getFollowers: async(req, res) => {
+    try {
+        
+    } catch (err) {
+        console.log(err)
+    }
+  },
+  getFollowing: async(req, res) => {
+    try {
+        
+    } catch (err) {
+        
+    }
+  }
 
   //Update Profile
   //Delete Account //Need the User model for this
