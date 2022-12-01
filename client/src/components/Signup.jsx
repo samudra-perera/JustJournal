@@ -35,7 +35,7 @@ const Signup = () => {
       //When the sign up is completed send the user to the profile creation page
       // navigate("/profile");
       if (res.data.status === 200) {
-        navigate("/profile");
+        navigate("/createProfile");
       }
     } catch (err) {
       console.log(err);

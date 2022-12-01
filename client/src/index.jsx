@@ -13,6 +13,8 @@ import ProfileCreation from "./pages/ProfileCreation";
 import UpdateJournal from "./components/UpdateJournal";
 import CreateJournal from "./components/CreateJournal";
 import ProfilePage from "./pages/ProfilePage";
+import FollowerList from "./components/FollowerList";
+import FollowingList from "./components/FollowingList";
 
 const router = createBrowserRouter([
   {
@@ -51,6 +53,13 @@ const router = createBrowserRouter([
         path: "updateJournal/:id",
         element: <UpdateJournal />,
       },
+      {
+        path: 'followers/:id', 
+        element: <FollowerList/>
+      }, {
+        path: 'following/:id',
+        element: <FollowingList/>
+      }
       // {
       //   path: 'journals/:id',
       //   element: <JournalPage />

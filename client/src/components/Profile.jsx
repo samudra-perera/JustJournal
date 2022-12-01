@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   //States for the data to be stored
@@ -9,6 +10,7 @@ const Profile = () => {
   const [followers, setFollowers] = useState("");
   const [following, setFollowing] = useState("");
   const [journals, setJournals] = useState("");
+  const [id, setId] = useState('')
 
   //API call to get a single Journal Page
   useEffect(() => {
@@ -27,6 +29,7 @@ const Profile = () => {
         setFollowers(res.data.profiles[0].followers.length);
         setFollowing(res.data.profiles[0].following.length);
         setJournals(res.data.numOfJournals);
+        setId(res.data.profiles[0]._id)
       } catch (err) {
         console.log(err);
       }
@@ -45,7 +48,13 @@ const Profile = () => {
             {firstName} {lastName}
           </p>
           <p>
-            Followers: {followers} Following: {following} Entries: {journals}
+            <Link to={`/dashboard/followers/${id}`}>
+              Followers: {followers} <br />
+            </Link>
+            <Link to={`/dashboard/following/${id}`}>
+              Following: {following} <br />
+            </Link>
+            Entries: {journals}
           </p>
         </div>
       </div>
@@ -54,3 +63,7 @@ const Profile = () => {
 };
 
 export default Profile;
+
+{
+  /* <Link to={`/dashboard/updateJournal/${id}`}>Update</Link> */
+}

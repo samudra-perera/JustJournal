@@ -10,13 +10,13 @@ module.exports = {
     try {
       //const user = await User.findOne({ _id: req.user._id });
       const profile = await Profile.find({ user: req.user._id });
-      const journals = await Journal.countDocuments({ user: req.user._id });
+      const journals = await Journal.countDocuments({ user: req.user._id });    //Get the number of journals
       res.json({profiles: profile, numOfJournals: journals});
     } catch (err) {
       console.log(err);
     }
   },
-  getNoneUserProfile: async(req, res) => {
+  getClickedProfile: async(req, res) => {
     try {
         
     } catch (err) {
@@ -63,16 +63,19 @@ module.exports = {
   },
   getFollowers: async(req, res) => {
     try {
-        
+        const followers = await Profile.findById(req.params.id , {followers: 1}) //returns only the followers
+        res.json(followers)
+
     } catch (err) {
         console.log(err)
     }
   },
   getFollowing: async(req, res) => {
     try {
-        
+        const following = await Profile.findById(req.params.id, {following: 1})
+        res.json(following)
     } catch (err) {
-        
+        console.log(err)
     }
   }
 
