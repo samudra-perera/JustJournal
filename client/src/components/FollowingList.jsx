@@ -19,7 +19,7 @@ const FollowingList = () => {
           }
         );
         setFollowing(res.data)
-        console.log(res.data)
+        //console.log(res.data)
       } catch (err) {
         console.log(err);
       }
@@ -29,7 +29,7 @@ const FollowingList = () => {
 
   return (
     <div>
-      <UserFollowProfileCard folldash={following} />
+      <UserFollowProfileCard follDash={following.following} />
     </div>
   );
 };

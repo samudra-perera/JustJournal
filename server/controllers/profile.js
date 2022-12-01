@@ -51,6 +51,7 @@ module.exports = {
   },
   followProfile: async (req, res) => {
     try {
+
     } catch (err) {
       console.log(err);
     }
@@ -61,6 +62,9 @@ module.exports = {
       console.log(err);
     }
   },
+  //GET
+  //api/profile/getFollowers/:id
+  //To get the followers for the profile in question
   getFollowers: async(req, res) => {
     try {
         const followers = await Profile.findById(req.params.id , {followers: 1}) //returns only the followers
@@ -70,6 +74,9 @@ module.exports = {
         console.log(err)
     }
   },
+  //GET
+  //api/profile/getFollowing/:id
+  //To get the following for the profile in question
   getFollowing: async(req, res) => {
     try {
         const following = await Profile.findById(req.params.id, {following: 1})
@@ -78,7 +85,4 @@ module.exports = {
         console.log(err)
     }
   }
-
-  //Update Profile
-  //Delete Account //Need the User model for this
 };

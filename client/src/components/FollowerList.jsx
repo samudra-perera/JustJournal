@@ -7,11 +7,10 @@ const FollowerList = () => {
   //Getting the ID from the URL params
   const { id } = useParams();
   // Setting the states of the followers
-  const [followers, setFollowers] = useState([])
+  const [followers, setFollowers] = useState([]);
 
-  //API Call to get a single
   useEffect(() => {
-    const getFollowers = async () => {
+    const getFollowing = async () => {
       try {
         const res = await axios.get(
           process.env.REACT_APP_API_URL + `/api/profile/getFollowers/${id}`,
@@ -19,16 +18,20 @@ const FollowerList = () => {
             withCredentials: true,
           }
         );
-          setFollowers(res.data)
+        setFollowers(res.data);
+        //console.log(res.data)
       } catch (err) {
         console.log(err);
       }
     };
-    getFollowers()
+    getFollowing();
   }, []);
-  return <div>
-    <UserFollowProfileCard follDash={followers}/>
-  </div>;
+
+  return (
+    <div>
+      <UserFollowProfileCard follDash={followers.followers} />
+    </div>
+  );
 };
 
 export default FollowerList;
