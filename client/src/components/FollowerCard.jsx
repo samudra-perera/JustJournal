@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
+//Add Key 
 
 const FollowerCard = (props) => {
   const { user } = props;
-  const [userName, setUserName] = useState('');
-  const [profilePic, setProfilePic] = useState('')
+  const [userName, setUserName] = useState("");
+  const [profilePic, setProfilePic] = useState("");
   useEffect(() => {
     const getUserInfo = async () => {
       try {
@@ -14,20 +16,23 @@ const FollowerCard = (props) => {
             withCredentials: true,
           }
         );
-        setUserName(res.data.userName.userName)
-        setProfilePic(res.data.profilePic.imageURL)
-        console.log(res.data)
+        setUserName(res.data.userName.userName);
+        setProfilePic(res.data.profilePic.imageURL);
+        console.log(res.data);
       } catch (err) {
         console.log(err);
       }
     };
-    getUserInfo()
+    getUserInfo();
   }, []);
 
-  return <div>
-  {userName}
-  <img src={profilePic} />
-  </div>;
+  return (
+    <div>
+      <Link to={`/profiles/${user}`}>{userName}</Link>
+
+      <img src={profilePic} />
+    </div>
+  );
 };
 
 export default FollowerCard;

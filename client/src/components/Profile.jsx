@@ -2,7 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const Profile = () => {
+const Profile = (props) => {
+  const{userID} = props
   //States for the data to be stored
   const [image, setImage] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -11,13 +12,14 @@ const Profile = () => {
   const [following, setFollowing] = useState("");
   const [journals, setJournals] = useState("");
   const [id, setId] = useState('')
+  console.log(typeof userID)
 
   //API call to get a single Journal Page
   useEffect(() => {
     const getProfile = async () => {
       try {
         const res = await axios.get(
-          process.env.REACT_APP_API_URL + "/getProfile",
+          process.env.REACT_APP_API_URL + `/getProfile/${userID}`,
           {
             withCredentials: true,
           }

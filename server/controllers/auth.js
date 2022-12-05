@@ -109,8 +109,11 @@ exports.postSignup = (req, res, next) => {
   );
 };
 
-exports.getUser = (req, res, next) => {
-  if(req.user) {
-    res.json(res.user)
+exports.getUser = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user._id)
+    res.json(user)
+  } catch (err) {
+    console.log(err)
   }
 }

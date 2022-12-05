@@ -10,8 +10,8 @@ module.exports = {
   getProfile: async (req, res) => {
     try {
       //const user = await User.findOne({ _id: req.user._id });
-      const profile = await Profile.find({ user: req.user._id });
-      const journals = await Journal.countDocuments({ user: req.user._id });    //Get the number of journals
+      const profile = await Profile.find({ user: req.params.id });
+      const journals = await Journal.countDocuments({ user: req.params.id });    //Get the number of journals
       res.json({profiles: profile, numOfJournals: journals});
     } catch (err) {
       console.log(err);
