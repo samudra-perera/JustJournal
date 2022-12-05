@@ -74,7 +74,7 @@ module.exports = {
       //Delete image from cloudinary
       await cloudinary.uploader.destroy(journal.cloudinaryID);
       //Need to delete any comments that have this JournalID associated with them
-
+      await Comment.deleteMany({ journalID: req.params.id });
       //Delete Post from DB
       await Journal.deleteOne({ _id: req.params.id });
       res.json("Deleted Journal");
@@ -82,6 +82,9 @@ module.exports = {
       console.log(err);
     }
   },
+  //Update a Journal
+  //PUT
+  //api/journal/updateJournal/:id'
   updateJournal: async (req, res) => {
     //Add method to update the image
     try {
@@ -114,18 +117,14 @@ module.exports = {
       console.log(err);
     }
   },
-  addLike: async (req,res) => {
+  addLike: async (req, res) => {
     try {
-        
     } catch (err) {
-        console.log(err)
+      console.log(err);
     }
   },
-  removeLike: async(req, res) => {
+  removeLike: async (req, res) => {
     try {
-        
-    } catch (err) {
-        
-    }
-  }
+    } catch (err) {}
+  },
 };

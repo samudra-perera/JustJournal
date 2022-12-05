@@ -1,6 +1,7 @@
 const Profile = require("../models/Profile");
 const cloudinary = require("../middleware/cloudinary");
 const Journal = require("../models/Journal");
+const User = require('../models/User')
 
 module.exports = {
   //Get profile information for the user who is logged in
@@ -83,6 +84,15 @@ module.exports = {
         res.json(following)
     } catch (err) {
         console.log(err)
+    }
+  },
+  getUserInfo: async(req, res) => {
+    try {
+      const userName = await User.findById(req.params.id, {userName: 1})
+      const profilePic = await Profile.findOne({user: req.params.id}, {imageURL: 1})
+      res.json({userName: userName , profilePic: profilePic})
+    } catch (err) {
+      console.log(err)
     }
   }
 };
