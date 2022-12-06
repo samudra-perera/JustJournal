@@ -52,11 +52,11 @@ module.exports = {
   },
   //Get all Jounral Entries by the user
   //GET
-  // url/dashboard
+  // url/dashboard/:id
   getUserFeed: async (req, res) => {
     try {
       //const user = await User.findById({id: req.user})    //change to req.user
-      const journals = await Journal.find({ user: req.user }).sort({
+      const journals = await Journal.find({ user: req.params.id }).sort({
         createAt: "desc",
       });
       res.json(journals);

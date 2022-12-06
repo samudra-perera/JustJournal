@@ -26,7 +26,7 @@ const Dashboard = () => {
       <div>
         <Nav />
         {id ? <Profile userID={id}/> : <p>Spinner</p>}
-        <Outlet />
+        {id ? <Outlet context={id}/> : <p>Spinner</p>}
       </div>
     </div>
   );
