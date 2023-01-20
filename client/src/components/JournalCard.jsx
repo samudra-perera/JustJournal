@@ -36,7 +36,10 @@ const JournalCard = (props) => {
         <button
           type="button"
           className="btn btn-primary"
-          onClick={() => deleteJournal(id)}
+          onClick={() => {
+            console.log(id)
+            deleteJournal(id)
+          }}
         >
           <FontAwesomeIcon icon={faTrash} />
         </button>

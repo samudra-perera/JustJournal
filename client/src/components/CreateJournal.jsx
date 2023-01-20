@@ -10,8 +10,9 @@ const CreateJournal = () => {
   const [promptThree, setPromptThree] = useState("");
   const [improvement, setImprovement] = useState("");
   const [isPublic, setIsPublic] = useState("0");
+  const [dayRating, setDayRating] = useState(0)
   const [file, setFile] = useState('')
-  const [image, setImage] = useState('')
+  const [image, setImage] = useState([])
 
   //Navigation Var
   const navigate = useNavigate();
@@ -47,12 +48,12 @@ const CreateJournal = () => {
   };
 
   //Helper function to set the image as a URL to send as a req.body instead of req.file
-  const previewFile = (file) => {
+  const previewFile = (file, index) => {
     const reader = new FileReader()
     reader.readAsDataURL(file)
 
     reader.onloadend = () => {
-      setImage(reader.result)
+      setImage([...image,reader.result])
     }
     console.log(image)
   }
@@ -151,7 +152,39 @@ const CreateJournal = () => {
         </div>
         <div className="mb-3">
           <label htmlFor="imgUpload" className="form-label">
-            Image
+            Image One
+          </label>
+          <input
+            className="form-control form-control-sm"
+            id="imageUpload"
+            type="file"
+            name="file"
+            accept="image/png, image/jpeg, image/jpg, image/PNG"
+            onChange={(e)=> {
+              setFile(e.target.files[0])
+              previewFile(e.target.files[0])
+            }}
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="imgUpload" className="form-label">
+            Image Two
+          </label>
+          <input
+            className="form-control form-control-sm"
+            id="imageUpload"
+            type="file"
+            name="file"
+            accept="image/png, image/jpeg, image/jpg, image/PNG"
+            onChange={(e)=> {
+              setFile(e.target.files[0])
+              previewFile(e.target.files[0])
+            }}
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="imgUpload" className="form-label">
+            Image Three
           </label>
           <input
             className="form-control form-control-sm"

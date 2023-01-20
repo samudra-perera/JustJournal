@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import CommentsList from "../components/CommentsList";
 import CreateComment from "../components/CreateComment";
+import JournalImages from "../components/JournalImages";
 
 //GET Request to server in order to get the Journal Contents
 
@@ -33,6 +34,7 @@ const JournalPage = () => {
     getJournal();
   }, []);
 
+
   return (
     <div>
       <h3>{journal.title}</h3>
@@ -42,7 +44,7 @@ const JournalPage = () => {
       <p>{journal.posPromptTwo}</p>
       <p>{journal.posPromptThree}</p>
       <p>{journal.improvPrompt}</p>
-      <img src={journal.imageURL}/>
+      <JournalImages props={journal.imageURL}/>
       <CreateComment id={id}/>
       <CommentsList />
     </div>

@@ -17,6 +17,11 @@ const ProfileSchema = new mongoose.Schema({
   },
   following: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  exists: {
+    type: Boolean,
+    default: true,
+    required: true,
+  }
 });
 
 module.exports = mongoose.model("Profile", ProfileSchema);

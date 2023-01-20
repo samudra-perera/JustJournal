@@ -23,10 +23,10 @@ const JournalSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  cloudinaryID: {
+  cloudinaryID: [{
     type: String,
     required: false,
-  },
+  }],
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -43,10 +43,10 @@ const JournalSchema = new mongoose.Schema({
   likes: {
     type: Number,
   },
-  imageURL : {
+  imageURL : [{
     type: String,
-    required: true
-  }
+    required: false
+  }]
 });
 
 module.exports = mongoose.model("Journal", JournalSchema);

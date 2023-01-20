@@ -94,5 +94,8 @@ module.exports = {
     } catch (err) {
       console.log(err)
     }
+  },
+  follow: async(req,res) => {
+    
   }
 };
