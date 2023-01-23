@@ -50,19 +50,6 @@ module.exports = {
       console.log(err);
     }
   },
-  followProfile: async (req, res) => {
-    try {
-
-    } catch (err) {
-      console.log(err);
-    }
-  },
-  unfollowProfile: async (req, res) => {
-    try {
-    } catch (err) {
-      console.log(err);
-    }
-  },
   //GET
   //api/profile/getFollowers/:id
   //To get the followers for the profile in question
@@ -86,6 +73,7 @@ module.exports = {
         console.log(err)
     }
   },
+
   getUserInfo: async(req, res) => {
     try {
       const userName = await User.findById(req.params.id, {userName: 1})
@@ -95,7 +83,26 @@ module.exports = {
       console.log(err)
     }
   },
+  //PUT
+  //api/profile/follow/:id
+  //To follow another user
   follow: async(req,res) => {
-    
+    try {
+      const follow = Profile.findById({user: req.user.id})
+      console.log(follow)
+    } catch (err) {
+      console.log(err)
+    }    
+  },
+  //PUT
+  //api/profile/unfollow/:id
+  //To unfollow another user
+  unfollow: async(req, res) => {
+    try {
+      
+    } catch (err) {
+      console.log(err)
+    }
   }
+
 };

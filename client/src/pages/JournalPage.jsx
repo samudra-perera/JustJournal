@@ -33,7 +33,7 @@ const JournalPage = () => {
     };
     getJournal();
   }, []);
-
+  console.log(journal)
 
   return (
     <div>

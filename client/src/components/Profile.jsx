@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import FollowButton from "./FollowButton";
 
 const Profile = (props) => {
   const{userID} = props
@@ -50,6 +51,7 @@ const Profile = (props) => {
             {firstName} {lastName}
           </p>
           <p>
+            {/* Depending on whether the user is on the dashboard or if the user is on a other profile page render diff things */}
             <Link to={`/dashboard/followers/${id}`}>
               Followers: {followers} <br />
             </Link>
@@ -59,6 +61,7 @@ const Profile = (props) => {
             Entries: {journals}
           </p>
         </div>
+        <FollowButton />
       </div>
     </div>
   );
