@@ -15,8 +15,8 @@ const ProfileSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-  following: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-  followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  following: [{ type: mongoose.Schema.Types.ObjectId, ref: "Profile" }],
+  followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "Profile" }],
   exists: {
     type: Boolean,
     default: true,

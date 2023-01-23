@@ -88,8 +88,21 @@ module.exports = {
   //To follow another user
   follow: async(req,res) => {
     try {
-      const follow = Profile.findById({user: req.user.id})
-      console.log(follow)
+      console.log(req.body._id)
+      let userProfileId = await Profile.findOne({user:req.user.id})
+      userProfileId = userProfileId._id
+      // Gets the profile of the user that is logged in and add the user Profile to the following
+      const followee = await Profile.findOneAndUpdate({user: req.user.id}, {
+        $push:{following:req.body._id}
+      },{
+        new: true
+      })
+      //Get the profile of the person to follow and add the loggedIn user profileID to the user
+      const follow = await Profile.findByIdAndUpdate(req.body._id, {
+        $push:{followers: userProfileId._id}
+      })
+      console.log(userProfileId)
+      
     } catch (err) {
       console.log(err)
     }    
@@ -99,10 +112,24 @@ module.exports = {
   //To unfollow another user
   unfollow: async(req, res) => {
     try {
+      console.log(req.body._id)
+      let userProfileId = await Profile.findOne({user:req.user.id})
+      userProfileId = userProfileId._id
+      // Gets the profile of the user that is logged in and remove the user Profile to the following
+      const followee = await Profile.findOneAndUpdate({user: req.user.id}, {
+        $pull:{following:req.body._id}
+      },{
+        new: true
+      })
+      //Get the profile of the person to follow and remove the loggedIn user profileID to the user
+      const follow = await Profile.findByIdAndUpdate(req.body._id, {
+        $pull:{followers: userProfileId._id}
+      })
+      console.log(userProfileId)
       
     } catch (err) {
       console.log(err)
-    }
+    }    
   }
 
 };

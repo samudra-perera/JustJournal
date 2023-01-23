@@ -61,7 +61,7 @@ const Profile = (props) => {
             Entries: {journals}
           </p>
         </div>
-        <FollowButton />
+        <FollowButton id={id}/>
       </div>
     </div>
   );
