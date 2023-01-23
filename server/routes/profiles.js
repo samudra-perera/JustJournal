@@ -9,4 +9,5 @@ router.get("/userInfo/:id", ensureAuth, profileController.getUserInfo);
 router.put("/follow", ensureAuth, profileController.follow);
 router.put("/unfollow", ensureAuth, profileController.unfollow);
 
+
 module.exports = router;

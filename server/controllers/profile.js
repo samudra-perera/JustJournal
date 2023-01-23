@@ -4,7 +4,7 @@ const Journal = require("../models/Journal");
 const User = require('../models/User')
 
 module.exports = {
-  //Get profile information for the user who is logged in
+  //Get profile information for any user by passing in params
   ///getProfile/:userName
   //GET
   getProfile: async (req, res) => {
@@ -15,6 +15,18 @@ module.exports = {
       res.json({profiles: profile, numOfJournals: journals});
     } catch (err) {
       console.log(err);
+    }
+  },
+  //GET profile information for the loggedIn user specifically
+  //getprofile/loggedIn
+  //GET
+  getUserProfile: async (req, res) => {
+    try {
+      const profile = await Profile.findOne({user: req.user._id});
+      const profileID = profile._id
+      res.json(profileID)
+    } catch (err) {
+      console.log(err)
     }
   },
   getClickedProfile: async(req, res) => {
@@ -115,7 +127,7 @@ module.exports = {
       console.log(req.body._id)
       let userProfileId = await Profile.findOne({user:req.user.id})
       userProfileId = userProfileId._id
-      // Gets the profile of the user that is logged in and remove the user Profile to the following
+      // Gets the profile of the user that is logged in and  the user Profile to the following
       const followee = await Profile.findOneAndUpdate({user: req.user.id}, {
         $pull:{following:req.body._id}
       },{

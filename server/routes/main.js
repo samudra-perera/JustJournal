@@ -13,6 +13,7 @@ router.get("/user", ensureAuth, authController.getUser); //Will only retrieve th
 router.post("/signup", authController.postSignup); //User creation ... works on postman
 router.get("/dashboard/:id", ensureAuth, journalController.getUserFeed);
 router.get("/getProfile/:id", ensureAuth, profile.getProfile);
+router.get("/loggedInUser", ensureAuth, profile.getUserProfile)
 router.post("/createProfile", profile.createProfile);
 
 module.exports = router;

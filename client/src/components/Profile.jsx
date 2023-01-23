@@ -9,30 +9,43 @@ const Profile = (props) => {
   const [image, setImage] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [followers, setFollowers] = useState("");
-  const [following, setFollowing] = useState("");
+  const [followersLength, setFollowersLength] = useState("");
+  const [followingLength, setFollowingLength] = useState("");
+  const [followers, setFollowers] = useState([])
   const [journals, setJournals] = useState("");
   const [id, setId] = useState('')
+  const [loggedInID, setLoggedInID] = useState("")
   console.log(typeof userID)
 
   //API call to get a single Journal Page
   useEffect(() => {
     const getProfile = async () => {
       try {
+        //Returns an object of profile data for the user entered into the params
         const res = await axios.get(
           process.env.REACT_APP_API_URL + `/getProfile/${userID}`,
           {
             withCredentials: true,
           }
         );
+        //Returns an just the profileID for the logged in user
+        const resLoggedIn = await axios.get(
+          process.env.REACT_APP_API_URL + `/loggedInUser`,
+          {
+            withCredentials: true,
+          }
+        );
         console.log(res.data);
+        console.log(resLoggedIn.data)
         setImage(res.data.profiles[0].imageURL);
         setFirstName(res.data.profiles[0].firstName);
         setLastName(res.data.profiles[0].lastName);
-        setFollowers(res.data.profiles[0].followers.length);
-        setFollowing(res.data.profiles[0].following.length);
+        setFollowersLength(res.data.profiles[0].followers.length);
+        setFollowingLength(res.data.profiles[0].following.length);
+        setFollowers(res.data.profiles[0].followers)
         setJournals(res.data.numOfJournals);
         setId(res.data.profiles[0]._id)
+        setLoggedInID(resLoggedIn.data)
       } catch (err) {
         console.log(err);
       }
@@ -53,15 +66,15 @@ const Profile = (props) => {
           <p>
             {/* Depending on whether the user is on the dashboard or if the user is on a other profile page render diff things */}
             <Link to={`/dashboard/followers/${id}`}>
-              Followers: {followers} <br />
+              Followers: {followersLength} <br />
             </Link>
             <Link to={`/dashboard/following/${id}`}>
-              Following: {following} <br />
+              Following: {followingLength} <br />
             </Link>
             Entries: {journals}
           </p>
         </div>
-        <FollowButton id={id}/>
+        <FollowButton id={id} followers={followers} loggedInID={loggedInID}/>
       </div>
     </div>
   );
