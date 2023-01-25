@@ -16,8 +16,8 @@ const FollowerCard = (props) => {
             withCredentials: true,
           }
         );
-        setUserName(res.data.userName.userName);
-        setProfilePic(res.data.profilePic.imageURL);
+        setUserName(res.data.userName);
+        setProfilePic(res.data.profilePic);
         console.log(res.data);
       } catch (err) {
         console.log(err);

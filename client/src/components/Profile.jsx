@@ -37,14 +37,14 @@ const Profile = (props) => {
         );
         console.log(res.data);
         console.log(resLoggedIn.data)
-        setImage(res.data.profiles[0].imageURL);
-        setFirstName(res.data.profiles[0].firstName);
-        setLastName(res.data.profiles[0].lastName);
-        setFollowersLength(res.data.profiles[0].followers.length);
-        setFollowingLength(res.data.profiles[0].following.length);
-        setFollowers(res.data.profiles[0].followers)
+        setImage(res.data.profiles.imageURL);
+        setFirstName(res.data.profiles.firstName);
+        setLastName(res.data.profiles.lastName);
+        setFollowersLength(res.data.profiles.followers.length);
+        setFollowingLength(res.data.profiles.following.length);
+        setFollowers(res.data.profiles.followers)
         setJournals(res.data.numOfJournals);
-        setId(res.data.profiles[0]._id)
+        setId(res.data.profiles._id)
         setLoggedInID(resLoggedIn.data)
       } catch (err) {
         console.log(err);

@@ -9,9 +9,8 @@ module.exports = {
   //GET
   getProfile: async (req, res) => {
     try {
-      //const user = await User.findOne({ _id: req.user._id });
-      const profile = await Profile.find({ user: req.params.id });
-      const journals = await Journal.countDocuments({ user: req.params.id });    //Get the number of journals
+      const profile = await Profile.findById(req.params.id );
+      const journals = await Journal.countDocuments({ user: profile.user });    //Get the number of journals
       res.json({profiles: profile, numOfJournals: journals});
     } catch (err) {
       console.log(err);
@@ -88,9 +87,9 @@ module.exports = {
 
   getUserInfo: async(req, res) => {
     try {
-      const userName = await User.findById(req.params.id, {userName: 1})
-      const profilePic = await Profile.findOne({user: req.params.id}, {imageURL: 1})
-      res.json({userName: userName , profilePic: profilePic})
+      const profile = await Profile.findById(req.params.id)
+      const user = await User.findById(profile.user)
+      res.json({profilePic: profile.imageURL, userName: user.userName})
     } catch (err) {
       console.log(err)
     }

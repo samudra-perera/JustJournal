@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import UserFollowProfileCard from "./UserFollowProfileCard";
+import FollowerCard from "./FollowerCard";
 
 const FollowerList = () => {
   //Getting the ID from the URL params
@@ -18,8 +19,8 @@ const FollowerList = () => {
             withCredentials: true,
           }
         );
-        setFollowers(res.data);
-        //console.log(res.data)
+        setFollowers(res.data.followers);
+        console.log(res.data.follower)
       } catch (err) {
         console.log(err);
       }
@@ -29,7 +30,11 @@ const FollowerList = () => {
 
   return (
     <div>
-      <UserFollowProfileCard follDash={followers.followers} />
+       {followers.map((follower) => {
+        return (
+          <FollowerCard key={follower} user={follower}/>
+        )
+       })}
     </div>
   );
 };
