@@ -15,7 +15,6 @@ const Profile = (props) => {
   const [journals, setJournals] = useState("");
   const [id, setId] = useState('')
   const [loggedInID, setLoggedInID] = useState("")
-  console.log(typeof userID)
 
   //API call to get a single Journal Page
   useEffect(() => {

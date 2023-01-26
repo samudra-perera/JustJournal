@@ -85,6 +85,17 @@ const router = createBrowserRouter([
         <ProfilePage />
       </ProtectedRoute>
     ),
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "following",
+        element: <FollowingList />
+      },
+      {
+        path: "followers",
+        element: <FollowerList />
+      }
+    ] 
   },
 ]);
 

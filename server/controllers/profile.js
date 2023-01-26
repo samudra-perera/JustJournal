@@ -9,7 +9,12 @@ module.exports = {
   //GET
   getProfile: async (req, res) => {
     try {
-      const profile = await Profile.findById(req.params.id );
+      //If the params is the profile ID the profile wont return null and will not execute the IF block
+      let profile = await Profile.findById(req.params.id );
+      //If the userID is sent search the profile documents using the userID
+      if (profile == null) {
+        profile = await Profile.findOne({user: req.params.id})
+      }
       const journals = await Journal.countDocuments({ user: profile.user });    //Get the number of journals
       res.json({profiles: profile, numOfJournals: journals});
     } catch (err) {

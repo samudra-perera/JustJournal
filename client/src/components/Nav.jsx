@@ -17,8 +17,9 @@ const Nav = () => {
 
   return (
     <div>
-      <Link to="journals">Journal</Link>
-      <Link to="createJournal">Create</Link>
+      <Link to="/dashboard">Dashboard</Link>
+      <Link to="/dashboard/journals">Journal</Link>
+      <Link to="/dashboard/createJournal">Create</Link>
       <button className="w-10 btn btn-sml btn-primary" onClick={getLogout}>Log out</button>
     </div>
   );

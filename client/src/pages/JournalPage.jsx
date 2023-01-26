@@ -4,6 +4,7 @@ import axios from "axios";
 import CommentsList from "../components/CommentsList";
 import CreateComment from "../components/CreateComment";
 import JournalImages from "../components/JournalImages";
+import Nav from "../components/Nav";
 
 //GET Request to server in order to get the Journal Contents
 
@@ -37,6 +38,7 @@ const JournalPage = () => {
 
   return (
     <div>
+      <Nav/>
       <h3>{journal.title}</h3>
       <span>{journal.createdAt}</span>
       <span> By: {user.userName}</span>

@@ -22,7 +22,6 @@ const Dashboard = () => {
   });
   return (
     <div>
-      <Link to="/dashboard">Dashboard</Link>
       <div>
         <Nav />
         {id ? <Profile userID={id}/> : <p>Spinner</p>}
