@@ -2,6 +2,7 @@
 //Simple logic on render
 //If user is not following render the follow button
 //If the user is following render the unfollow button
+//Do not render for the loggedin users profile
 import React from "react";
 import axios from "axios";
 
@@ -47,7 +48,11 @@ const FollowButton = (props) => {
   //Search the follower Array to see if the loggedIn user is following the viewed profile...if following render the unfollow button
   if(followers.includes(loggedInID)) {
     return <button onClick={updateUnFollow}>unfollow</button>
+  } else if (id === loggedInID) {
+    //If we are viewing our own profile component do not render a follow button(cause we should be able to follow ourself)
+    return 
   } else {
+    //If we do not follow the profile, render the follow button
     return <button onClick={updateFollow}>follow</button>
   }
 };

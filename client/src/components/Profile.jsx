@@ -63,11 +63,10 @@ const Profile = (props) => {
             {firstName} {lastName}
           </p>
           <p>
-            {/* Depending on whether the user is on the dashboard or if the user is on a other profile page render diff things */}
-            <Link to={`/dashboard/followers/${id}`}>
+            <Link to={`followers/${id}`}>
               Followers: {followersLength} <br />
             </Link>
-            <Link to={`/dashboard/following/${id}`}>
+            <Link to={`following/${id}`}>
               Following: {followingLength} <br />
             </Link>
             Entries: {journals}

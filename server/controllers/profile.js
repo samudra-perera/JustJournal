@@ -92,7 +92,10 @@ module.exports = {
 
   getUserInfo: async(req, res) => {
     try {
-      const profile = await Profile.findById(req.params.id)
+      let profile = await Profile.findById(req.params.id)
+      if(profile == null) {
+        profile = await Profile.findOne({user: req.params.id})
+      }
       const user = await User.findById(profile.user)
       res.json({profilePic: profile.imageURL, userName: user.userName})
     } catch (err) {

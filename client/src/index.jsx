@@ -88,11 +88,11 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "following",
+        path: "following/:id",
         element: <FollowingList />
       },
       {
-        path: "followers",
+        path: "followers/:id",
         element: <FollowerList />
       }
     ] 
