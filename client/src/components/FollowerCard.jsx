@@ -1,36 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
-//Add Key 
+// import axios from "axios";
+import {useAxios} from '../hooks/useAxios'
+import axios from '../api/serverConnect'
 
 const FollowerCard = (props) => {
   const { user } = props;
-  const [userName, setUserName] = useState("");
-  const [profilePic, setProfilePic] = useState("");
-  useEffect(() => {
-    const getUserInfo = async () => {
-      try {
-        const res = await axios.get(
-          process.env.REACT_APP_API_URL + `/api/profile/userInfo/${user}`,
-          {
-            withCredentials: true,
-          }
-        );
-        setUserName(res.data.userName);
-        setProfilePic(res.data.profilePic);
-        console.log(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getUserInfo();
-  }, []);
+  const [userInfo, error, loading] = useAxios({
+    axiosInstance: axios,
+    method: 'GET',
+    url: `/api/profile/userInfo/${user}`,
+    requestConfig: {
+      withCredentials: true
+    }
+  })
 
   return (
     <div>
-      <Link to={`/profiles/${user}`}>{userName}</Link>
+      <Link to={`/profiles/${user}`}>{userInfo.userName}</Link>
 
-      <img src={profilePic} />
+      <img src={userInfo.profilePic} />
     </div>
   );
 };

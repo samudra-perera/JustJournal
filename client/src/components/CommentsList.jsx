@@ -1,5 +1,5 @@
 // import axios from "axios";
-import axios from '../api/getData'
+import axios from '../api/serverConnect'
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useAxios } from "../hooks/useAxios";
