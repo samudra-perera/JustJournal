@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 export const useAxios = (configObj) => {
+    //Destructuring the hook parameters
     const {
         axiosInstance,
         method,
