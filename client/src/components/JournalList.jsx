@@ -1,38 +1,29 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+//This component is the component housing the list of Journal entries as card components
+import React from "react";
+import axios from '../api/serverConnect'
+import { useAxios } from "../hooks/useAxios";
 import { useOutletContext } from "react-router-dom";
 import JournalCard from "./JournalCard";
 
 const JournalList = (props) => {
   const {propID} = props
   let userID = useOutletContext()
-  const [data, setData] = useState([]);
-  console.log(userID)
 
-  useEffect(() => {
-    if(!userID) {
-      userID = propID
+  if(!userID) {
+    userID = propID
+  }
+  const [journals, error, loading] = useAxios({
+    axiosInstance: axios,
+    method: 'GET',
+    url: `/dashboard/${userID}`,
+    requestConfig: {
+      withCredentials: true
     }
-    const getFeed = async () => {
-      try {
-        const res = await axios.get(
-          process.env.REACT_APP_API_URL + `/dashboard/${userID}`,
-          {
-            withCredentials: true,
-          }
-        );
-        console.log(res.data);
-        setData(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getFeed();
-  }, []);
+  })
 
   return (
     <div>
-      {data.map((journal) => {
+      {journals.map((journal) => {
         return (
           <JournalCard
             createdAt={journal.createdAt}

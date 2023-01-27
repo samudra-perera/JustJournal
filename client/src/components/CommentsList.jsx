@@ -35,7 +35,3 @@ const CommentsList = () => {
 
 export default CommentsList;
 
-
-const Comment = () => {
-
-}
