@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+// import axios from "axios";
 import { useParams } from "react-router-dom";
+import axios from '../api/serverConnect'
+import {useAxiosFunction} from '../hooks/useAxiosFunction'
 
 //POST Request to 'api/journal/addComment/:id'
 
@@ -10,27 +12,40 @@ const CreateComment = () => {
   //State for Comment
   const [comment, setComment] = useState('');
   //API Request
-  const createComment = async () => {
-    try {
-      const res = await axios.post(
-        process.env.REACT_APP_API_URL + `/api/journal/addComment/${id}`,
-        {
-          comment: comment,
-        },
-        {
-          withCredentials: true,
-        }
-      );
-      console.log(res.data)
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const createComment = async () => {
+  //   try {
+  //     const res = await axios.post(
+  //       process.env.REACT_APP_API_URL + `/api/journal/addComment/${id}`,
+  //       {
+  //         comment: comment,
+  //       },
+  //       {
+  //         withCredentials: true,
+  //       }
+  //     );
+  //     console.log(res.data)
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  const [comments, error, loading, axiosFetch] = useAxiosFunction()
 
   //Submit Handler
   const handleSubmit = (e) => {
     e.preventDefault();
-    createComment();
+    // createComment();
+    axiosFetch({
+      axiosInstance: axios,
+      method: 'POST',
+      url: `/api/journal/addComment/${id}`,
+      requestConfig: {
+        data: {
+          comment: comment
+        },
+        withCredentials: true,
+      }
+    })
   };
 
   //Setting State of Comment

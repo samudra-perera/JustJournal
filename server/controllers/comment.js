@@ -8,8 +8,9 @@ module.exports = {
   //POST
   createComment: async (req, res) => {
     try {
-      const { comment } = req.body;
-      const temp = await User.findById({ _id: req.user.id }); //Temp variable to get the user object for the specific user
+      console.log(req.sessionID)
+      const { comment } = req.body.data;
+      const temp = await User.findById(req.user._id); //Temp variable to get the user object for the specific user
       const userComment = await Comment.create({
         user: req.user.id,
         comment: comment,
@@ -26,6 +27,7 @@ module.exports = {
   //Gets all the comments based on the journalID
   //api/jorunal/getComments/:id
   getComment: async (req, res) => {
+    console.log(req.sessionID)
     try {
       const comments = await Comment.find({ journalID: req.params.id }); //.sort({createAt: 'desc'}) for test don't need
       res.json(comments);

@@ -9,6 +9,7 @@ module.exports = {
   //POST
   //url/api/journal/createJournal
   createJournal: async (req, res) => {
+    console.log(req.sessionID)
     try {
       const {
         title,
