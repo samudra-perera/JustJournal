@@ -4,15 +4,20 @@ import { Link, renderMatches, useNavigate, useParams } from "react-router-dom";
 
 const CreateJournal = () => {
   //States for the form inputs
-  const [title, setTitle] = useState("");
-  const [promptOne, setPromptOne] = useState("");
-  const [promptTwo, setPromptTwo] = useState("");
-  const [promptThree, setPromptThree] = useState("");
-  const [improvement, setImprovement] = useState("");
-  const [isPublic, setIsPublic] = useState("0");
-  const [dayRating, setDayRating] = useState(0)
-  const [file, setFile] = useState('')
-  const [image, setImage] = useState([])
+  const [data, setData] = useState({
+    title: "",
+    promptOne: "",
+    promptTwo: "",
+    prompThree: "",
+    improvement: "",
+    isPublic: "0",
+    dayRating: "",
+    date: "",
+  });
+  console.log(data)
+  //States for image files
+  const [file, setFile] = useState("");
+  const [image, setImage] = useState([]);
 
   //Navigation Var
   const navigate = useNavigate();
@@ -24,12 +29,12 @@ const CreateJournal = () => {
         process.env.REACT_APP_API_URL + "/api/journal/createJournal",
         {
           image: image,
-          title: title,
-          posPromptOne: promptOne,
-          posPromptTwo: promptTwo,
-          posPromptThree: promptThree,
-          improvPrompt: improvement,
-          isPublic: isPublic,
+          title: data.title,
+          posPromptOne: data.promptOne,
+          posPromptTwo: data.promptTwo,
+          posPromptThree: data.promptThree,
+          improvPrompt: data.improvement,
+          isPublic: data.isPublic,
         },
         {
           withCredentials: true,
@@ -49,54 +54,40 @@ const CreateJournal = () => {
 
   //Helper function to set the image as a URL to send as a req.body instead of req.file
   const previewFile = (file, index) => {
-    const reader = new FileReader()
-    reader.readAsDataURL(file)
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
 
     reader.onloadend = () => {
-      setImage([...image,reader.result])
-    }
-    console.log(image)
-  }
+      setImage([...image, reader.result]);
+    };
+    console.log(image);
+  };
 
-  //Setting the state of the inputs
-  useEffect(() => {
-    setTitle(title);
-  }, [title]);
-
-  useEffect(() => {
-    setPromptOne(promptOne)
-  }, [promptOne])
-
-  useEffect(() => {
-    setPromptTwo(promptTwo)
-  }, [promptTwo])
+  //Setting the state of the input object
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData((prev) => {
+      return { ...prev, [name]: value };
+    });
+  };
 
   useEffect(() => {
-    setPromptThree(promptThree)
-  }, [promptThree])
-
-  useEffect(() => {
-    setImprovement(improvement)
-  }, [improvement])
-
-  useEffect(() => {
-    setIsPublic(isPublic)
-  }, [isPublic])
-
-  useEffect(() => {
-    setFile(file)
-  }, [file])
+    setFile(file);
+  }, [file]);
 
   return (
     <div>
-      <form className="p-4 p-md-5 border rounded-3 bg-light" onSubmit={handleSubmit}>
+      <form
+        className="p-4 p-md-5 border rounded-3 bg-light"
+        onSubmit={handleSubmit}
+      >
         <div className="form-floating mb-3">
           <input
             type="text"
             className="form-control"
             name="title"
             autoComplete="off"
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={handleChange}
             required
             placeholder="Title of your journal"
           />
@@ -106,9 +97,9 @@ const CreateJournal = () => {
           <input
             type="text"
             className="form-control"
-            name="posPromptOne"
+            name="promptOne"
             autoComplete="off"
-            onChange={(e) => setPromptOne(e.target.value)}
+            onChange={handleChange}
             required
             placeholder="Enter Positive Prompt 1"
           />
@@ -118,9 +109,9 @@ const CreateJournal = () => {
           <input
             type="text"
             className="form-control"
-            name="posPromptTwo"
+            name="promptTwo"
             autoComplete="off"
-            onChange={(e) => setPromptTwo(e.target.value)}
+            onChange={handleChange}
             required
             placeholder="Enter Positive Prompt 2"
           />
@@ -130,9 +121,9 @@ const CreateJournal = () => {
           <input
             type="text"
             className="form-control"
-            name="posPromptThree"
+            name="promptThree"
             autoComplete="off"
-            onChange={(e) => setPromptThree(e.target.value)}
+            onChange={handleChange}
             required
             placeholder="Enter Positive Prompt 3"
           />
@@ -142,10 +133,10 @@ const CreateJournal = () => {
           <input
             type="text"
             className="form-control"
-            name="improvPrompt"
+            name="improvement"
             autoComplete="off"
             required
-            onChange={(e) => setImprovement(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter Improvement Prompt"
           />
           <label htmlFor="username">Daily Improvement</label>
@@ -160,9 +151,9 @@ const CreateJournal = () => {
             type="file"
             name="file"
             accept="image/png, image/jpeg, image/jpg, image/PNG"
-            onChange={(e)=> {
-              setFile(e.target.files[0])
-              previewFile(e.target.files[0])
+            onChange={(e) => {
+              setFile(e.target.files[0]);
+              previewFile(e.target.files[0]);
             }}
           />
         </div>
@@ -176,9 +167,9 @@ const CreateJournal = () => {
             type="file"
             name="file"
             accept="image/png, image/jpeg, image/jpg, image/PNG"
-            onChange={(e)=> {
-              setFile(e.target.files[0])
-              previewFile(e.target.files[0])
+            onChange={(e) => {
+              setFile(e.target.files[0]);
+              previewFile(e.target.files[0]);
             }}
           />
         </div>
@@ -192,9 +183,9 @@ const CreateJournal = () => {
             type="file"
             name="file"
             accept="image/png, image/jpeg, image/jpg, image/PNG"
-            onChange={(e)=> {
-              setFile(e.target.files[0])
-              previewFile(e.target.files[0])
+            onChange={(e) => {
+              setFile(e.target.files[0]);
+              previewFile(e.target.files[0]);
             }}
           />
         </div>
@@ -207,9 +198,9 @@ const CreateJournal = () => {
             aria-label="select example"
             name="isPublic"
             required
-            onChange={(e) => setIsPublic(e.target.value)}
+            onChange={handleChange}
           >
-            <option value="0" defaultValue={'0'}>
+            <option value="0" defaultValue={"0"}>
               No
             </option>
             <option value="1">Yes</option>

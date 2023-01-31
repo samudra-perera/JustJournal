@@ -50,6 +50,7 @@ const JournalSchema = new mongoose.Schema({
   journalDAte: {
     type: Date,
     required: true,
+    default: Date.now
   },
   moodState: {
     type: Number,
