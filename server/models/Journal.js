@@ -46,7 +46,17 @@ const JournalSchema = new mongoose.Schema({
   imageURL : [{
     type: String,
     required: false
-  }]
+  }],
+  journalDAte: {
+    type: Date,
+    required: true,
+  },
+  moodState: {
+    type: Number,
+    enum: [0, 1, 2, 3, 4, 5, 6],
+    required: true,
+    default: 3
+  }
 });
 
 module.exports = mongoose.model("Journal", JournalSchema);

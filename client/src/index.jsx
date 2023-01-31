@@ -15,6 +15,7 @@ import CreateJournal from "./components/CreateJournal";
 import ProfilePage from "./pages/ProfilePage";
 import FollowerList from "./components/FollowerList";
 import FollowingList from "./components/FollowingList";
+import { ChakraProvider } from "@chakra-ui/react";
 
 const router = createBrowserRouter([
   {
@@ -54,12 +55,13 @@ const router = createBrowserRouter([
         element: <UpdateJournal />,
       },
       {
-        path: 'followers/:id', 
-        element: <FollowerList/>
-      }, {
-        path: 'following/:id',
-        element: <FollowingList/>
-      }
+        path: "followers/:id",
+        element: <FollowerList />,
+      },
+      {
+        path: "following/:id",
+        element: <FollowingList />,
+      },
       // {
       //   path: 'journals/:id',
       //   element: <JournalPage />
@@ -89,13 +91,13 @@ const router = createBrowserRouter([
     children: [
       {
         path: "following/:id",
-        element: <FollowingList />
+        element: <FollowingList />,
       },
       {
         path: "followers/:id",
-        element: <FollowerList />
-      }
-    ] 
+        element: <FollowerList />,
+      },
+    ],
   },
 ]);
 
@@ -103,6 +105,8 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ChakraProvider>
+      <RouterProvider router={router} />
+    </ChakraProvider>
   </React.StrictMode>
 );

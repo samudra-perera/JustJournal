@@ -9,7 +9,7 @@ module.exports = {
   createComment: async (req, res) => {
     try {
       console.log(req.sessionID)
-      const { comment } = req.body.data;
+      const { comment } = req.body;
       const temp = await User.findById(req.user._id); //Temp variable to get the user object for the specific user
       const userComment = await Comment.create({
         user: req.user.id,
