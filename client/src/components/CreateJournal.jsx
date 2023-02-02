@@ -14,7 +14,6 @@ const CreateJournal = () => {
     dayRating: "",
     date: "",
   });
-  console.log(data)
   //States for image files
   const [file, setFile] = useState("");
   const [image, setImage] = useState([]);
@@ -217,3 +216,4 @@ const CreateJournal = () => {
 export default CreateJournal;
 
 //Add the mood choice ennumrator
+//Add date selection

@@ -3,10 +3,13 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const ProfileCreation = () => {
-  //Setting the states
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [bio, setBio] = useState("");
+  //Setting the states (Turn into objects and reduce code clutter)
+  const [data, setData] = useState({
+    firstName: "",
+    lastName: "",
+    bio: "",
+  });
+  //FIle States
   const [file, setFile] = useState("");
   const [image, setImage] = useState("");
 
@@ -16,9 +19,9 @@ const ProfileCreation = () => {
       const res = await axios.post(
         process.env.REACT_APP_API_URL + "/createProfile",
         {
-          firstName: firstName,
-          lastName: lastName,
-          bio: bio,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          bio: data.bio,
           image: image,
         },
         {
@@ -48,17 +51,12 @@ const ProfileCreation = () => {
   };
 
   //Setting the state of the inputs
-  useEffect(() => {
-    setFirstName(firstName);
-  }, [firstName]);
-
-  useEffect(() => {
-    setLastName(lastName);
-  }, [lastName]);
-
-  useEffect(() => {
-    setBio(bio);
-  }, [bio]);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData((prev) => {
+      return { ...prev, [name]: value };
+    });
+  };
 
   useEffect(() => {
     setFile(file);
@@ -76,7 +74,7 @@ const ProfileCreation = () => {
             className="form-control"
             name="firstName"
             autoComplete="off"
-            onChange={(e) => setFirstName(e.target.value)}
+            onChange={handleChange}
             required
             placeholder="Enter Positive Prompt 1"
           />
@@ -88,7 +86,7 @@ const ProfileCreation = () => {
             className="form-control"
             name="lastName"
             autoComplete="off"
-            onChange={(e) => setLastName(e.target.value)}
+            onChange={handleChange}
             required
             placeholder="Enter Positive Prompt 2"
           />
@@ -100,7 +98,7 @@ const ProfileCreation = () => {
             className="form-control"
             name="bio"
             autoComplete="off"
-            onChange={(e) => setBio(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter Positive Prompt 3"
           />
           <label htmlFor="username">Bio</label>
