@@ -19,7 +19,10 @@ module.exports = {
         improvPrompt,
         isPublic,
         image,
+        dayRating,
+        date
       } = req.body;
+      //Check if there is a Journal that exists for the current date, if there is a Journal that exists already tell the user to pick a diff date
 
       //The image body is sent as an array and needs to be converted into the correct array format prior to saving in the MongoDB document store
       const result = [];
@@ -43,6 +46,9 @@ module.exports = {
         imageURL: result,
         user: req.user,
         likes: 0,
+        moodState: dayRating,
+        journalDate: date
+
       });
       console.log("Journal Entry has been created");
       res.json({ journal });

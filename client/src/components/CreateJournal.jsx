@@ -34,6 +34,8 @@ const CreateJournal = () => {
           posPromptThree: data.promptThree,
           improvPrompt: data.improvement,
           isPublic: data.isPublic,
+          dayRating: data.dayRating,
+          date: data.date
         },
         {
           withCredentials: true,
@@ -188,6 +190,19 @@ const CreateJournal = () => {
             }}
           />
         </div>
+        <label for="customRange3" class="form-label">
+          Example range
+        </label>
+        <input
+          type="range"
+          class="form-range"
+          min="0"
+          max="6"
+          step="1"
+          id="customRange3"
+          name="dayRating"
+          onChange={handleChange}
+        ></input>
         <div className="mb-3">
           <label className="form-label">
             Do you want to make your journal public?
@@ -205,6 +220,14 @@ const CreateJournal = () => {
             <option value="1">Yes</option>
           </select>
         </div>
+        <label for="startDate">Date of Journal: </label>
+        <input
+          id="startDate"
+          class="form-control"
+          type="date"
+          name="date"
+          onChange={handleChange}
+        />
         <button className="w-100 btn btn-lg btn-primary" type="submit">
           Create Entry
         </button>
@@ -217,3 +240,4 @@ export default CreateJournal;
 
 //Add the mood choice ennumrator
 //Add date selection
+//For the date selector set the max date to the current date, we don't want users selecting dates in the futture
