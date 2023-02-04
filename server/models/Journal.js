@@ -55,6 +55,10 @@ const JournalSchema = new mongoose.Schema({
     type: Number,
     enum: [0, 1, 2, 3, 4, 5, 6],
     required: true,
+  },
+  stringDate: {
+    type: String,
+    required: true
   }
 });
 

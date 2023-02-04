@@ -20,9 +20,16 @@ module.exports = {
         isPublic,
         image,
         dayRating,
-        date
+        date,
       } = req.body;
+
       //Check if there is a Journal that exists for the current date, if there is a Journal that exists already tell the user to pick a diff date
+      const findDate = await Journal.find({stringDate: date})
+      console.log(findDate)
+      if(findDate) {
+        return res.json('There already exists a journal for this date')
+      }
+
 
       //The image body is sent as an array and needs to be converted into the correct array format prior to saving in the MongoDB document store
       const result = [];
@@ -47,7 +54,8 @@ module.exports = {
         user: req.user,
         likes: 0,
         moodState: dayRating,
-        journalDate: date
+        journalDate: date,
+        stringDate: date
 
       });
       console.log("Journal Entry has been created");

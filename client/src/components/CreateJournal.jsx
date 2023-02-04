@@ -17,6 +17,8 @@ const CreateJournal = () => {
   //States for image files
   const [file, setFile] = useState("");
   const [image, setImage] = useState([]);
+  console.log(data.date)
+  console.log(typeof data.date)
 
   //Navigation Var
   const navigate = useNavigate();
@@ -35,7 +37,7 @@ const CreateJournal = () => {
           improvPrompt: data.improvement,
           isPublic: data.isPublic,
           dayRating: data.dayRating,
-          date: data.date
+          date: data.date,
         },
         {
           withCredentials: true,
