@@ -26,7 +26,7 @@ module.exports = {
       //Check if there is a Journal that exists for the current date, if there is a Journal that exists already tell the user to pick a diff date
       const findDate = await Journal.find({stringDate: date})
       console.log(findDate)
-      if(findDate) {
+      if(findDate.length != 0) {
         return res.json('There already exists a journal for this date')
       }
 

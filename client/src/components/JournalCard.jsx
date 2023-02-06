@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
+import {Box } from '@chakra-ui/react'
 
 const styles = {
   maxWidth: "18rem",

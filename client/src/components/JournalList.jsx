@@ -1,28 +1,31 @@
 //This component is the component housing the list of Journal entries as card components
 import React from "react";
-import axios from '../api/serverConnect'
+import axios from "../api/serverConnect";
 import { useAxios } from "../hooks/useAxios";
 import { useOutletContext } from "react-router-dom";
+import { SimpleGrid } from "@chakra-ui/react";
 import JournalCard from "./JournalCard";
 
 const JournalList = (props) => {
-  const {propID} = props
-  let userID = useOutletContext()
+  const { propID } = props;
+  let userID = useOutletContext();
 
-  if(!userID) {
-    userID = propID
+  if (!userID) {
+    userID = propID;
   }
   const [journals, error, loading] = useAxios({
     axiosInstance: axios,
-    method: 'GET',
+    method: "GET",
     url: `/dashboard/${userID}`,
     requestConfig: {
-      withCredentials: true
-    }
-  })
+      withCredentials: true,
+    },
+  });
+
+  //Add a section to display if the user has no Journal available for display (no journals have been created yet)
 
   return (
-    <div>
+    <SimpleGrid minChildWidth={12} spacing={10}>
       {journals.map((journal) => {
         return (
           <JournalCard
@@ -34,7 +37,7 @@ const JournalList = (props) => {
           />
         );
       })}
-    </div>
+    </SimpleGrid>
   );
 };
 
