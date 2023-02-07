@@ -3,10 +3,11 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 const Login = () => {
-  //Email States
-  const [email, setEmail] = useState("");
-  //Password State
-  const [password, setPassword] = useState("");
+  //user states
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
 
   const navigate = useNavigate();
 
@@ -16,8 +17,8 @@ const Login = () => {
       const res = await axios.post(
         process.env.REACT_APP_API_URL + "/login",
         {
-          email: email,
-          password: password,
+          email: user.email,
+          password: user.password,
         },
         {
           withCredentials: true,
@@ -43,15 +44,13 @@ const Login = () => {
     //If the login attempt does not work send them to the index page
   };
 
-  //Setting the state of the email
-  useEffect(() => {
-    setEmail(email);
-  }, [email]);
-
-  //Setting the state of the password
-  useEffect(() => {
-    setPassword(password);
-  }, [password]);
+  //Setting the state of the input object
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData((prev) => {
+      return { ...prev, [name]: value };
+    });
+  };
 
   return (
     <div className="col-md-10 mx-auto col-lg-5">
@@ -65,7 +64,7 @@ const Login = () => {
             className="form-control"
             name="email"
             autoComplete="off"
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleChange}
             required
             placeholder="name@example.com"
           />
@@ -77,7 +76,7 @@ const Login = () => {
             className="form-control"
             name="password"
             autoComplete="off"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handleChange}
             required
             placeholder="Password"
           />

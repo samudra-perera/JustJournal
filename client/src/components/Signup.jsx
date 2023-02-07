@@ -4,15 +4,14 @@ import axios from "axios";
 //The signup page is gonna send the data for the user Schema and the profile Schema
 //In a seperate page within the dashboard the user will be able to add things to their profile ie bio, picture etc
 
-const Signup = () => {  
-  //Email States
-  const [email, setEmail] = useState("");
-  //User States
-  const [username, setUsername] = useState("");
-  //Password States
-  const [password, setPassword] = useState("");
-  //Confirm Password States
-  const [matchPassword, setMatchPassword] = useState("");
+const Signup = () => {
+  //Signup States
+  const [user, setUser] = useState({
+    email: "",
+    username: "",
+    password: "",
+    matchPassword: "",
+  });
 
   const navigate = useNavigate();
   //createUser API Request
@@ -21,10 +20,10 @@ const Signup = () => {
       const res = await axios.post(
         process.env.REACT_APP_API_URL + "/signup",
         {
-          email: email,
-          userName: username,
-          password: password,
-          confirmPassword: matchPassword,
+          email: user.email,
+          userName: user.username,
+          password: user.password,
+          confirmPassword: user.matchPassword,
         },
         {
           withCredentials: true,
@@ -45,30 +44,19 @@ const Signup = () => {
     }
   };
 
+  //Submit Handler
   const handleSubmit = (e) => {
     e.preventDefault();
     createUser();
   };
 
-  //Setting the state of the email
-  useEffect(() => {
-    setEmail(email);
-  }, [email]);
-
-  //Setting the state of the username
-  useEffect(() => {
-    setUsername(username); //Set the state
-  }, [username]);
-
-  //Setting the state of the password
-  useEffect(() => {
-    setPassword(password);
-  }, [password]);
-
-  //Setting the state of the matchpassword
-  useEffect(() => {
-    setMatchPassword(matchPassword); //The password validation is done on the serverside using the Auth controllers (post signup)
-  }, [matchPassword]);
+  //Setting the state of the input object
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData((prev) => {
+      return { ...prev, [name]: value };
+    });
+  };
 
   //Sending the POST request
 
@@ -84,7 +72,7 @@ const Signup = () => {
             className="form-control"
             name="email"
             autoComplete="off"
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleChange}
             required
             placeholder="name@example.com"
           />
@@ -96,7 +84,7 @@ const Signup = () => {
             className="form-control"
             name="username"
             autoComplete="off"
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={handleChange}
             required
             placeholder="name@example.com"
           />
@@ -109,7 +97,7 @@ const Signup = () => {
             name="password"
             required
             autoComplete="off"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handleChange}
             placeholder="Password"
           />
           <label htmlFor="password">Password</label>
@@ -121,7 +109,7 @@ const Signup = () => {
             name="matchPassword"
             required
             autoComplete="off"
-            onChange={(e) => setMatchPassword(e.target.value)}
+            onChange={handleChange}
             placeholder="Confirm Password"
           />
           <label htmlFor="matchPassword">Confirm Password</label>
