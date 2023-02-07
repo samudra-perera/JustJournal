@@ -25,7 +25,7 @@ const JournalList = (props) => {
   //Add a section to display if the user has no Journal available for display (no journals have been created yet)
 
   return (
-    <SimpleGrid minChildWidth={12} spacing={10}>
+    <SimpleGrid minChildWidth='250px' spacing={10}>
       {journals.map((journal) => {
         return (
           <JournalCard

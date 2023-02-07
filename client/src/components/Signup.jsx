@@ -4,7 +4,7 @@ import axios from "axios";
 //The signup page is gonna send the data for the user Schema and the profile Schema
 //In a seperate page within the dashboard the user will be able to add things to their profile ie bio, picture etc
 
-const Signup = () => {
+const Signup = () => {  
   //Email States
   const [email, setEmail] = useState("");
   //User States
