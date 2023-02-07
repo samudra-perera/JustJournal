@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { Grid, GridItem } from "@chakra-ui/react";
 import Nav from "../components/Nav";
 import Profile from "../components/Profile";
@@ -25,7 +25,7 @@ const Dashboard = () => {
   return (
     <Grid templateColumns="repeat(6, 1fr)" bg="gray.50">
       <SideNav />
-      <GridItem colSpan="5" as="main">
+      <GridItem colSpan="5" as="main" p={7}>
         <Nav />
         {id ? <Profile userID={id} /> : <p>Spinner</p>}
         {id ? <Outlet context={id} /> : <p>Spinner</p>}

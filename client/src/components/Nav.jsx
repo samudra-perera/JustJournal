@@ -33,15 +33,6 @@ const Nav = () => {
           SP
         </Box>
         <Text>Samudra@gmail.com</Text>
-        <Link to="/dashboard">
-          <Text>Dashboard</Text>
-        </Link>
-        <Link to="/dashboard/journals">
-          <Text>Journal</Text>
-        </Link>
-        <Link to="/dashboard/createJournal">
-          <Text>Create</Text>
-        </Link>
         <Link to="/" onClick={getLogout}>
           <Button colorScheme="purple">logout</Button>
         </Link>
