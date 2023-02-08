@@ -7,6 +7,7 @@ import Profile from "../components/Profile";
 import SideNav from "../components/SideNav";
 
 // Added Spinner on the parent profile element to stop incorrectly rendered children components
+//If a user created an account but did not create a profile yet reroute them to the profile page
 const Dashboard = () => {
   const [id, setID] = useState("");
   useEffect(() => {

@@ -48,11 +48,6 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     postLogin();
-    //On submission ...
-    //If the login user is verified send to the dashboard
-    navigate("/dashboard");
-
-    //If the login attempt does not work send them to the index page
   };
 
   //Setting the state of the input object
@@ -68,7 +63,7 @@ const Login = () => {
       <Box bg="white" p={6} rounded="md" w={64}>
         <Formik initialValues={user} onSubmit={handleSubmit}>
           {({ handleSubmit, errors, touched }) => (
-            <form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit}>
               <VStack spacing={4} align="flex-start">
                 <FormControl>
                   <FormLabel htmlFor="email">Email Address</FormLabel>
@@ -112,11 +107,11 @@ const Login = () => {
                   Login
                 </Button>
                 <small className="text-muted">
-                  Don't have an account? Click <Link to="/signup">Sign up</Link>{" "}
+                  Don't have an account? Click <Link to="/signup">Sign up </Link>
                   to make one!.
                 </small>
               </VStack>
-            </form>
+            </Form>
           )}
         </Formik>
       </Box>
