@@ -1,6 +1,18 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { Formik, Field, Form } from "formik";
+import {
+  Box,
+  Button,
+  Checkbox,
+  Flex,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Input,
+  VStack,
+} from "@chakra-ui/react";
 
 const Login = () => {
   //user states
@@ -35,7 +47,6 @@ const Login = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
     postLogin();
     //On submission ...
     //If the login user is verified send to the dashboard
@@ -47,57 +58,71 @@ const Login = () => {
   //Setting the state of the input object
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setData((prev) => {
+    setUser((prev) => {
       return { ...prev, [name]: value };
     });
   };
 
   return (
-    <div className="col-md-10 mx-auto col-lg-5">
-      <form
-        className="p-4 p-md-5 border rounded-3 bg-light"
-        onSubmit={handleSubmit}
-      >
-        <div className="form-floating mb-3">
-          <input
-            type="email"
-            className="form-control"
-            name="email"
-            autoComplete="off"
-            onChange={handleChange}
-            required
-            placeholder="name@example.com"
-          />
-          <label htmlFor="floatingInput">Email address</label>
-        </div>
-        <div className="form-floating mb-3">
-          <input
-            type="password"
-            className="form-control"
-            name="password"
-            autoComplete="off"
-            onChange={handleChange}
-            required
-            placeholder="Password"
-          />
-          <label htmlFor="floatingPassword">Password</label>
-        </div>
-        <div className="checkbox mb-3">
-          <label>
-            <input type="checkbox" value="remember-me" /> Remember me
-          </label>
-        </div>
-        <button className="w-100 btn btn-lg btn-primary" type="submit">
-          Login
-        </button>
-        <hr className="my-4" />
-        <small className="text-muted">
-          Don't have an account? Click <Link to="/signup">Sign up</Link> to make
-          one!.
-        </small>
-      </form>
-    </div>
+    <Flex bg="gray.100" align="center" justify="center" h="100vh">
+      <Box bg="white" p={6} rounded="md" w={64}>
+        <Formik initialValues={user} onSubmit={handleSubmit}>
+          {({ handleSubmit, errors, touched }) => (
+            <form onSubmit={handleSubmit}>
+              <VStack spacing={4} align="flex-start">
+                <FormControl>
+                  <FormLabel htmlFor="email">Email Address</FormLabel>
+                  <Field
+                    as={Input}
+                    id="email"
+                    name="email"
+                    type="email"
+                    variant="filled"
+                    onChange={handleChange}
+                    value={user.email}
+                  />
+                </FormControl>
+                <FormControl isInvalid={!!errors.password && touched.password}>
+                  <FormLabel htmlFor="password">Password</FormLabel>
+                  <Field
+                    as={Input}
+                    id="password"
+                    name="password"
+                    type="password"
+                    variant="filled"
+                    validate={() => {
+                      if (user.password.length < 8) {
+                        return "Password Needs to be a 8 or more characters";
+                      }
+                    }}
+                    onChange={handleChange}
+                    value={user.password}
+                  />
+                  <FormErrorMessage>{errors.password}</FormErrorMessage>
+                </FormControl>
+                <Field
+                  as={Checkbox}
+                  id="rememberMe"
+                  name="rememberMe"
+                  colorScheme="green"
+                >
+                  Remember me?
+                </Field>
+                <Button type="submit" colorScheme="green" w="full">
+                  Login
+                </Button>
+                <small className="text-muted">
+                  Don't have an account? Click <Link to="/signup">Sign up</Link>{" "}
+                  to make one!.
+                </small>
+              </VStack>
+            </form>
+          )}
+        </Formik>
+      </Box>
+    </Flex>
   );
 };
 
 export default Login;
+

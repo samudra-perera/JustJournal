@@ -53,7 +53,7 @@ const Signup = () => {
   //Setting the state of the input object
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setData((prev) => {
+    setUser((prev) => {
       return { ...prev, [name]: value };
     });
   };

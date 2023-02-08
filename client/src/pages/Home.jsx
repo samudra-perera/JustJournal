@@ -1,6 +1,8 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 
+//Use Chakra Grid system to dea;l with the seperation
+
 const Home = () => {
   return (
     <div className="container col-xl-10 col-xxl-8 px-4 py-5">
