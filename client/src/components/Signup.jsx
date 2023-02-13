@@ -16,6 +16,24 @@ import {
 //The signup page is gonna send the data for the user Schema and the profile Schema
 //In a seperate page within the dashboard the user will be able to add things to their profile ie bio, picture etc
 
+//Password validation function to force the inputs on the frontend
+// Between 8-32 characters, One letter, one lower and uppercase letter, One number
+const passwordValidation = (password) => {
+  const theLength = /.{8,32}/
+  const numberCase = /[0-9]/
+  const lowerCase = /[a-z]/
+  const upperCase = /[A-Z]/
+  if(!theLength.test(password)) {
+    return "Password Needs to be between 8 and 32 characters"
+  } else if (!numberCase.test(password)) {
+    return "Password needs to contain one number"
+  } else if (!lowerCase.test(password)) {
+    return "Password needs one lowercase letter"
+  } else if (!upperCase.test(password)) {
+    return "Password needs one uppercase letter"
+  }
+}
+
 const Signup = () => {
   //Signup States
   const [user, setUser] = useState({
@@ -78,7 +96,7 @@ const Signup = () => {
             {({ handleSubmit, errors, touched }) => (
               <Form onSubmit={handleSubmit}>
                 <VStack spacing={4} align="flex-start">
-                  <FormControl>
+                  <FormControl isRequired='true'>
                     <FormLabel htmlFor="email">Email Address</FormLabel>
                     <Field
                       as={Input}
@@ -90,7 +108,7 @@ const Signup = () => {
                       value={user.email}
                     />
                   </FormControl>
-                  <FormControl>
+                  <FormControl isRequired='true' isInvalid={!!errors.username && touched.username}>
                     <FormLabel htmlFor="email">Username</FormLabel>
                     <Field
                       as={Input}
@@ -100,10 +118,17 @@ const Signup = () => {
                       variant="filled"
                       onChange={handleChange}
                       value={user.username}
+                      validate={() => {
+                        if(user.username.length > 20 || user.username.length < 5) {
+                          return "Please enter a username between 5 and 20 characters"
+                        }
+                      }}
                     />
+                    <FormErrorMessage>{errors.username}</FormErrorMessage>
                   </FormControl>
                   <FormControl
                     isInvalid={!!errors.password && touched.password}
+                    isRequired='true'
                   >
                     <FormLabel htmlFor="password">Password</FormLabel>
                     <Field
@@ -113,10 +138,8 @@ const Signup = () => {
                       type="password"
                       variant="filled"
                       validate={() => {
-                        if (user.password.length < 8) {
-                          return "Password Needs to be a 8 or more characters";
-                        }
-                      }}
+                        return passwordValidation(user.password)
+                        }}
                       onChange={handleChange}
                       value={user.password}
                     />
@@ -124,6 +147,7 @@ const Signup = () => {
                   </FormControl>
                   <FormControl
                     isInvalid={!!errors.matchPassword && touched.matchPassword}
+                    isRequired='true'
                   >
                     <FormLabel htmlFor="matchPassword">Confirm Password</FormLabel>
                     <Field
