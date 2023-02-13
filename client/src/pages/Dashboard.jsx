@@ -25,7 +25,9 @@ const Dashboard = () => {
   });
   return (
     <Grid templateColumns="repeat(6, 1fr)" bg="gray.50">
-      <SideNav />
+      <GridItem as="aside" bg="purple.400" minHeight="100vh" p={5} colSpan="1">
+        <SideNav />
+      </GridItem>
       <GridItem colSpan="5" as="main" p={7}>
         <Nav />
         {id ? <Profile userID={id} /> : <p>Spinner</p>}

@@ -3,7 +3,7 @@ import React from "react";
 import axios from "../api/serverConnect";
 import { useAxios } from "../hooks/useAxios";
 import { useOutletContext } from "react-router-dom";
-import { SimpleGrid } from "@chakra-ui/react";
+import { SimpleGrid, Text } from "@chakra-ui/react";
 import JournalCard from "./JournalCard";
 
 const JournalList = (props) => {
@@ -25,8 +25,10 @@ const JournalList = (props) => {
   //Add a section to display if the user has no Journal available for display (no journals have been created yet)
 
   return (
+  <>
+    <Text>Jounrals</Text>
     <SimpleGrid minChildWidth='250px' spacing={10}>
-      {journals.map((journal) => {
+      {journals && journals.map((journal) => {
         return (
           <JournalCard
             createdAt={journal.createdAt}
@@ -38,6 +40,7 @@ const JournalList = (props) => {
         );
       })}
     </SimpleGrid>
+  </>
   );
 };
 

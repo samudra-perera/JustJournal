@@ -41,6 +41,7 @@ const router = createBrowserRouter([
       </ProtectedRoute>
     ),
     errorElement: <ErrorPage />,
+    index: <JournalList />,
     children: [
       {
         path: "journals",
