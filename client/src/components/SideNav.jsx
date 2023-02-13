@@ -24,6 +24,18 @@ const SideNav = () => {
           Create
         </Link>
       </ListItem>
+      <ListItem>
+        <Link>
+        <ListIcon as={AddIcon}/>
+          Liked Journals
+        </Link>
+      </ListItem>
+      <ListItem>
+        <Link>
+        <ListIcon as={AddIcon}/>
+          JournalWrapped
+        </Link>
+      </ListItem>
     </List>
   );
 };

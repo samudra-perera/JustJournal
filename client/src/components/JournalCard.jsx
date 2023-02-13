@@ -13,6 +13,8 @@ import {
   Flex,
   HStack,
   Text,
+  Heading,
+  Image
 } from "@chakra-ui/react";
 import { CloseIcon, EditIcon } from "@chakra-ui/icons";
 
@@ -21,7 +23,7 @@ const styles = {
 };
 
 const JournalCard = (props) => {
-  const { createdAt, title, posPromptOne, id } = props;
+  const { createdAt, title, posPromptOne, id, firstName, lastName, profileImage } = props;
 
   //Delete functionality works however need to refresh in order to see the update
   const deleteJournal = async (id) => {
@@ -37,17 +39,19 @@ const JournalCard = (props) => {
       console.log(err);
     }
   };
+  
 
   return (
     <Card key={id}>
       <CardHeader>
         <Flex>
           <Box p={2}>
-            <Text>AV</Text>
+            <Image borderRadius='full' boxSize='50px' src={profileImage}/>
           </Box>
           <Box p={2}>
             <Link to={`/journals/${id}`}>
-              <Text>{title}</Text>
+              <Heading as='h3' size='sm'>{title}</Heading>
+              <Text>By: {firstName} {lastName}</Text>
             </Link>
           </Box>
         </Flex>

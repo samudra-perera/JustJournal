@@ -3,6 +3,7 @@ const Comment = require("../models/Comment");
 // const path = require('path')
 const User = require("../models/User");
 const cloudinary = require("../middleware/cloudinary");
+const Profile = require("../models/Profile");
 
 module.exports = {
   //Create a Journal Entry
@@ -85,7 +86,9 @@ module.exports = {
       const journals = await Journal.find({ user: req.params.id }).sort({
         createAt: "desc",
       });
-      res.json(journals);
+      //Find the profile information as well
+      const profile = await Profile.find({user: req.params.id})
+      res.json({journal: journals, profile: profile});
     } catch (err) {
       console.log(err);
     }
