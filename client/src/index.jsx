@@ -16,6 +16,7 @@ import ProfilePage from "./pages/ProfilePage";
 import FollowerList from "./components/FollowerList";
 import FollowingList from "./components/FollowingList";
 import { ChakraProvider } from "@chakra-ui/react";
+import UserInformation from "./pages/UserInformation";
 
 const router = createBrowserRouter([
   {
@@ -63,10 +64,10 @@ const router = createBrowserRouter([
         path: "following/:id",
         element: <FollowingList />,
       },
-      // {
-      //   path: 'journals/:id',
-      //   element: <JournalPage />
-      // },
+      {
+        path: 'userInformation',
+        element: <UserInformation/>
+      },
     ],
   },
   {

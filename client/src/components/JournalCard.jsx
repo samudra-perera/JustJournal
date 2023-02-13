@@ -14,7 +14,7 @@ import {
   HStack,
   Text,
   Heading,
-  Image
+  Image,
 } from "@chakra-ui/react";
 import { CloseIcon, EditIcon } from "@chakra-ui/icons";
 
@@ -23,7 +23,15 @@ const styles = {
 };
 
 const JournalCard = (props) => {
-  const { createdAt, title, posPromptOne, id, firstName, lastName, profileImage } = props;
+  const {
+    createdAt,
+    title,
+    posPromptOne,
+    id,
+    firstName,
+    lastName,
+    profileImage,
+  } = props;
 
   //Delete functionality works however need to refresh in order to see the update
   const deleteJournal = async (id) => {
@@ -39,19 +47,22 @@ const JournalCard = (props) => {
       console.log(err);
     }
   };
-  
 
   return (
     <Card key={id}>
       <CardHeader>
         <Flex>
           <Box p={2}>
-            <Image borderRadius='full' boxSize='50px' src={profileImage}/>
+            <Image borderRadius="full" boxSize="50px" src={profileImage} />
           </Box>
           <Box p={2}>
             <Link to={`/journals/${id}`}>
-              <Heading as='h3' size='sm'>{title}</Heading>
-              <Text>By: {firstName} {lastName}</Text>
+              <Heading as="h3" size="sm">
+                {title}
+              </Heading>
+              <Text size='sm'>
+                By: {firstName} {lastName}
+              </Text>
             </Link>
           </Box>
         </Flex>
@@ -79,28 +90,6 @@ const JournalCard = (props) => {
         </HStack>
       </CardFooter>
     </Card>
-    // <div className="card border-primary mb-3" style={styles} key={id}>
-    //   <div className="card-header">{createdAt}</div>
-    //   <div className="card-body text-primary">
-    //     <h5 className="card-title">
-    //       <Link to={`/journals/${id}`}>{title}</Link>
-    //     </h5>
-    //     <p className="card-text">{posPromptOne}</p>
-    //     <button
-    //       type="button"
-    //       className="btn btn-primary"
-    // onClick={() => {
-    //   console.log(id)
-    //   deleteJournal(id)
-    // }}
-    //     >
-    //       <FontAwesomeIcon icon={faTrash} />
-    //     </button>
-    //     <h5 className="card-title">
-    //       <Link to={`/dashboard/updateJournal/${id}`}>Update</Link>
-    //     </h5>
-    //   </div>
-    // </div>
   );
 };
 

@@ -1,5 +1,5 @@
 import React from "react";
-import {AddIcon, CalendarIcon, ViewIcon} from '@chakra-ui/icons'
+import {AddIcon, CalendarIcon, ViewIcon, AtSignIcon} from '@chakra-ui/icons'
 import { Text, List, ListItem, ListIcon } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
@@ -34,6 +34,12 @@ const SideNav = () => {
         <Link>
         <ListIcon as={AddIcon}/>
           JournalWrapped
+        </Link>
+      </ListItem>
+      <ListItem>
+        <Link to='/dashboard/userInformation'>
+        <ListIcon as={AtSignIcon}/>
+          User Information
         </Link>
       </ListItem>
     </List>
