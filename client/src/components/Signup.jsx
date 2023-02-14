@@ -90,7 +90,7 @@ const Signup = () => {
   //Sending the POST request
 
   return (
-      <Flex bg="gray.100" align="center" justify="center" h="100vh">
+      <Flex bg="gray.100" align="center" justify="center">
         <Box bg="white" p={6} rounded="md" w={80}>
           <Formik initialValues={user} onSubmit={handleSubmit}>
             {({ handleSubmit, errors, touched }) => (
