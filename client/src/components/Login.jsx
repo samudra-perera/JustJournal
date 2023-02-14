@@ -60,7 +60,7 @@ const Login = () => {
 
   return (
     <Flex bg="gray.100" align="center" justify="center">
-      <Box bg="white" p={6} rounded="md" w={80}>
+      <Box bg="white" p={6} rounded="md" w='500px'>
         <Formik initialValues={user} onSubmit={handleSubmit}>
           {({ handleSubmit, errors, touched }) => (
             <Form onSubmit={handleSubmit}>
