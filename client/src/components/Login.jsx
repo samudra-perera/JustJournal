@@ -48,7 +48,7 @@ const Login = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = () => {
     postLogin();
   };
 
