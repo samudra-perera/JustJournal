@@ -12,7 +12,7 @@ import {
   FormErrorMessage,
   FormLabel,
   Input,
-  Spacer,
+  Text,
   VStack,
 } from "@chakra-ui/react";
 
@@ -60,16 +60,33 @@ const Login = () => {
     });
   };
 
+  //Style for the anchor tag (Link)
+  const style = {
+    color: "purple",
+  };
+
+  //Responsive font sizing
+  const fontSize = { base: "xs", sm: "sm", md: "med", lg: "large" };
+
   return (
     <>
-      <Flex align="center" justify="center" bgImg={'https://res.cloudinary.com/dkrjwbr8w/image/upload/v1676418486/Doubs_foubci.png'} height='92vh' bgSize='3000px' bgPosition='right'>
-        <Box bg="white" rounded="xl" w="500px" p={10}>
+      <Flex
+        align="center"
+        justify="center"
+        bgImg={
+          "https://res.cloudinary.com/dkrjwbr8w/image/upload/v1676418486/Doubs_foubci.png"
+        }
+        height="92vh"
+        bgSize="3000px"
+        bgPosition="right"
+      >
+        <Box bg="white" rounded="xl" w={[300, 400, 500]} p={[6, 9, 12]}>
           <Formik initialValues={user} onSubmit={handleSubmit}>
             {({ handleSubmit, errors, touched }) => (
               <Form onSubmit={handleSubmit}>
                 <VStack spacing={4} align="flex-start">
-                  <FormControl>
-                    <FormLabel htmlFor="email">Email Address</FormLabel>
+                  <FormControl isRequired="true" >
+                    <FormLabel htmlFor="email" fontSize={fontSize}>Email Address</FormLabel>
                     <Field
                       as={Input}
                       id="email"
@@ -82,8 +99,9 @@ const Login = () => {
                   </FormControl>
                   <FormControl
                     isInvalid={!!errors.password && touched.password}
+                    isRequired="true"
                   >
-                    <FormLabel htmlFor="password">Password</FormLabel>
+                    <FormLabel htmlFor="password" fontSize={fontSize}>Password</FormLabel>
                     <Field
                       as={Input}
                       id="password"
@@ -117,10 +135,13 @@ const Login = () => {
                   >
                     Login
                   </Button>
-                  <small className="text-muted">
-                    Don't have an account? Click <Link to="/signup">Here </Link>
+                  <Text fontSize="xs">
+                    Don't have an account? Click{" "}
+                    <Link to="/signup" style={style}>
+                      <strong>here</strong>{" "}
+                    </Link>
                     to make one!.
-                  </small>
+                  </Text>
                 </VStack>
               </Form>
             )}
