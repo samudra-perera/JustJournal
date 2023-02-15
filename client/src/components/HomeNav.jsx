@@ -24,7 +24,7 @@ const HomeNav = () => {
   };
 
   return (
-    <Flex as="nav" p="10px" alignItems="center">
+    <Flex as="nav" px={8} py={4} alignItems="center" justify='center' w='100%' bg='white' zIndex='100' height='18h'>
       <Heading as="h1">Just Journal</Heading>
       <Spacer />
       <HStack spacing="20px">
@@ -44,6 +44,15 @@ const HomeNav = () => {
             variant="ghost"
           >
             Log in
+          </Button>
+        </Link>
+        <Link to="/howToUse">
+          <Button
+            colorScheme="purple"
+            isActive={checkClick("/howToUse")}
+            variant="ghost"
+          >
+            How it works
           </Button>
         </Link>
       </HStack>

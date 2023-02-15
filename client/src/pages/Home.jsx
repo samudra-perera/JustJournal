@@ -8,27 +8,9 @@ import HomeNav from "../components/HomeNav";
 const Home = () => {
   return (
     <>
-      <HomeNav />
-      <Flex align="center" height="100vh" p={8}>
-        <Flex flexWrap="wrap" direction="column">
-          <Box>
-            <Heading as="h2" size="2xl">
-              Welcome to Just Journal
-            </Heading>
-          </Box>
-          <Box>
-            <Text>
-              Below is an example form built entirely with Bootstrap’s form
-              controls. Each required form group has a validation state that can
-              be triggered by attempting to submit the form without completing
-              it.
-            </Text>
-          </Box>
-        </Flex>
-
-        <Center>
-          <Outlet />
-        </Center>
+      <Flex direction="column">
+        <HomeNav />
+        <Outlet />
       </Flex>
     </>
   );

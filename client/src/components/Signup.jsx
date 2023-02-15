@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import LandingAside from "./LandingAside";
 import { Formik, Field, Form } from "formik";
 import {
   Box,
@@ -19,20 +20,20 @@ import {
 //Password validation function to force the inputs on the frontend
 // Between 8-32 characters, One letter, one lower and uppercase letter, One number
 const passwordValidation = (password) => {
-  const theLength = /.{8,32}/
-  const numberCase = /[0-9]/
-  const lowerCase = /[a-z]/
-  const upperCase = /[A-Z]/
-  if(!theLength.test(password)) {
-    return "Password Needs to be between 8 and 32 characters"
+  const theLength = /.{8,32}/;
+  const numberCase = /[0-9]/;
+  const lowerCase = /[a-z]/;
+  const upperCase = /[A-Z]/;
+  if (!theLength.test(password)) {
+    return "Password Needs to be between 8 and 32 characters";
   } else if (!numberCase.test(password)) {
-    return "Password needs to contain one number"
+    return "Password needs to contain one number";
   } else if (!lowerCase.test(password)) {
-    return "Password needs one lowercase letter"
+    return "Password needs one lowercase letter";
   } else if (!upperCase.test(password)) {
-    return "Password needs one uppercase letter"
+    return "Password needs one uppercase letter";
   }
-}
+};
 
 const Signup = () => {
   //Signup States
@@ -90,95 +91,109 @@ const Signup = () => {
   //Sending the POST request
 
   return (
-      <Flex bg="gray.100" align="center" justify="center">
-        <Box bg="white" p={6} rounded="md" w={80}>
-          <Formik initialValues={user} onSubmit={handleSubmit}>
-            {({ handleSubmit, errors, touched }) => (
-              <Form onSubmit={handleSubmit}>
-                <VStack spacing={4} align="flex-start">
-                  <FormControl isRequired='true'>
-                    <FormLabel htmlFor="email">Email Address</FormLabel>
-                    <Field
-                      as={Input}
-                      id="email"
-                      name="email"
-                      type="email"
-                      variant="filled"
-                      onChange={handleChange}
-                      value={user.email}
-                    />
-                  </FormControl>
-                  <FormControl isRequired='true' isInvalid={!!errors.username && touched.username}>
-                    <FormLabel htmlFor="email">Username</FormLabel>
-                    <Field
-                      as={Input}
-                      id="username"
-                      name="username"
-                      type="text"
-                      variant="filled"
-                      onChange={handleChange}
-                      value={user.username}
-                      validate={() => {
-                        if(user.username.length > 20 || user.username.length < 5) {
-                          return "Please enter a username between 5 and 20 characters"
-                        }
-                      }}
-                    />
-                    <FormErrorMessage>{errors.username}</FormErrorMessage>
-                  </FormControl>
-                  <FormControl
-                    isInvalid={!!errors.password && touched.password}
-                    isRequired='true'
-                  >
-                    <FormLabel htmlFor="password">Password</FormLabel>
-                    <Field
-                      as={Input}
-                      id="password"
-                      name="password"
-                      type="password"
-                      variant="filled"
-                      validate={() => {
-                        return passwordValidation(user.password)
+    <>
+        <Flex align="center" justify="center" bgImg={'https://res.cloudinary.com/dkrjwbr8w/image/upload/v1676418486/Doubs_foubci.png'} height='100vh' bgSize='3000px'>
+          <Box bg="white" rounded="md" w='500px'>
+            <Formik initialValues={user} onSubmit={handleSubmit}>
+              {({ handleSubmit, errors, touched }) => (
+                <Form onSubmit={handleSubmit}>
+                  <VStack spacing={4} align="flex-start">
+                    <FormControl isRequired="true">
+                      <FormLabel htmlFor="email">Email Address</FormLabel>
+                      <Field
+                        as={Input}
+                        id="email"
+                        name="email"
+                        type="email"
+                        variant="filled"
+                        onChange={handleChange}
+                        value={user.email}
+                      />
+                    </FormControl>
+                    <FormControl
+                      isRequired="true"
+                      isInvalid={!!errors.username && touched.username}
+                    >
+                      <FormLabel htmlFor="email">Username</FormLabel>
+                      <Field
+                        as={Input}
+                        id="username"
+                        name="username"
+                        type="text"
+                        variant="filled"
+                        onChange={handleChange}
+                        value={user.username}
+                        validate={() => {
+                          if (
+                            user.username.length > 20 ||
+                            user.username.length < 5
+                          ) {
+                            return "Please enter a username between 5 and 20 characters";
+                          }
                         }}
-                      onChange={handleChange}
-                      value={user.password}
-                    />
-                    <FormErrorMessage>{errors.password}</FormErrorMessage>
-                  </FormControl>
-                  <FormControl
-                    isInvalid={!!errors.matchPassword && touched.matchPassword}
-                    isRequired='true'
-                  >
-                    <FormLabel htmlFor="matchPassword">Confirm Password</FormLabel>
-                    <Field
-                      as={Input}
-                      id="matchPassword"
-                      name="matchPassword"
-                      type="password"
-                      variant="filled"
-                      validate={() => {
-                        if (user.matchPassword !== user.password) {
-                          return "Passwords do not match, please try again"
-                        }
-                      }}
-                      onChange={handleChange}
-                      value={user.matchPassword}
-                    />
-                    <FormErrorMessage>{errors.matchPassword}</FormErrorMessage>
-                  </FormControl>
-                  <Button type="submit" colorScheme="green" w="full">
-                    Sign up
-                  </Button>
-                  <small className="text-muted">
-                    Already have an account? Click <Link to="/">Here</Link> to
-                    go back!
-                  </small>
-                </VStack>
-              </Form>
-            )}
-          </Formik>
-        </Box>
-      </Flex>
+                      />
+                      <FormErrorMessage>{errors.username}</FormErrorMessage>
+                    </FormControl>
+                    <FormControl
+                      isInvalid={!!errors.password && touched.password}
+                      isRequired="true"
+                    >
+                      <FormLabel htmlFor="password">Password</FormLabel>
+                      <Field
+                        as={Input}
+                        id="password"
+                        name="password"
+                        type="password"
+                        variant="filled"
+                        validate={() => {
+                          return passwordValidation(user.password);
+                        }}
+                        onChange={handleChange}
+                        value={user.password}
+                      />
+                      <FormErrorMessage>{errors.password}</FormErrorMessage>
+                    </FormControl>
+                    <FormControl
+                      isInvalid={
+                        !!errors.matchPassword && touched.matchPassword
+                      }
+                      isRequired="true"
+                    >
+                      <FormLabel htmlFor="matchPassword">
+                        Confirm Password
+                      </FormLabel>
+                      <Field
+                        as={Input}
+                        id="matchPassword"
+                        name="matchPassword"
+                        type="password"
+                        variant="filled"
+                        validate={() => {
+                          if (user.matchPassword !== user.password) {
+                            return "Passwords do not match, please try again";
+                          }
+                        }}
+                        onChange={handleChange}
+                        value={user.matchPassword}
+                      />
+                      <FormErrorMessage>
+                        {errors.matchPassword}
+                      </FormErrorMessage>
+                    </FormControl>
+                    <Button type="submit" bg="purple.400" w="full" color='white' variant='solid'>
+                      Sign up
+                    </Button>
+                    <small className="text-muted">
+                      Already have an account? Click <Link to="/">Here</Link> to
+                      go back!
+                    </small>
+                  </VStack>
+                </Form>
+              )}
+            </Formik>
+          </Box>
+        </Flex>
+    </>
   );
 };
 

@@ -15,6 +15,7 @@ import CreateJournal from "./components/CreateJournal";
 import ProfilePage from "./pages/ProfilePage";
 import FollowerList from "./components/FollowerList";
 import FollowingList from "./components/FollowingList";
+import HowToComponent from "./components/HowToComponent";
 import { ChakraProvider } from "@chakra-ui/react";
 import UserInformation from "./pages/UserInformation";
 
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
         path: "signup",
         element: <Signup />,
       },
+      {
+        path: "howToUse",
+        element: <HowToComponent/>
+      }
     ],
   },
   {
