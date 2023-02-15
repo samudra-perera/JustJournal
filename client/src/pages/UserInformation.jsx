@@ -1,7 +1,7 @@
 import { Tab, TabList, TabPanel, TabPanels, Tabs, Text } from "@chakra-ui/react";
 import React from "react";
 import Profile from "../components/Profile";
-import { useOutletContext } from "react-router-dom";
+import { Outlet, useOutletContext } from "react-router-dom";
 
 const UserInformation = () => {
     const userID = useOutletContext()
@@ -10,15 +10,16 @@ const UserInformation = () => {
     <Tabs mt="40px" p="20px" colorScheme="purple" variant="enclosed">
       <TabList>
         <Tab _selected={{ color: "white", bg: "purple.400" }}>
-          Account Information
+          Profile Information
         </Tab>
         <Tab _selected={{ color: "white", bg: "purple.400" }}>
-          Profile Information
+          Account Information
         </Tab>
       </TabList>
       <TabPanels>
         <TabPanel>
           <Profile userID={userID}/>
+          <Outlet/>
         </TabPanel>
         <TabPanel>
           <Text>2</Text>

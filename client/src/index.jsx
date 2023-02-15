@@ -61,17 +61,28 @@ const router = createBrowserRouter([
         path: "updateJournal/:id",
         element: <UpdateJournal />,
       },
-      {
-        path: "followers/:id",
-        element: <FollowerList />,
-      },
-      {
-        path: "following/:id",
-        element: <FollowingList />,
-      },
+      // This is made redundant because the user information tab is gonna handle these routes
+      // {
+      //   path: "followers/:id",
+      //   element: <FollowerList />,
+      // },
+      // {
+      //   path: "following/:id",
+      //   element: <FollowingList />,
+      // },
       {
         path: 'userInformation',
-        element: <UserInformation/>
+        element: <UserInformation/>,
+        children: [
+          {
+            path: "followers/:id",
+            element: <FollowerList />,
+          },
+          {
+            path: "following/:id",
+            element: <FollowingList />,
+          },
+        ]
       },
     ],
   },
