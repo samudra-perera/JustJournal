@@ -37,6 +37,9 @@ module.exports = {
       const cloud = [];
       //Loop through the image array and upload each image onto cloudinary and save the URL and IDs in the result and cloud array
       for (let i = 0; i < image.length; i++) {
+        if(image[i] == 0) {
+          continue
+        }
         result[i] = await cloudinary.uploader.upload(image[i]);
         cloud[i] = result[i].public_id;
         result[i] = result[i].secure_url;

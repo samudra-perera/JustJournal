@@ -19,6 +19,8 @@ const UpdateJournal = () => {
   //API Call to set the state of the form inputs
   const { id } = useParams();   //To get the id of the Journal being edited
 
+  //Validation for the journal inputs (Max 500 characters)
+
   useEffect(() => {
     const getJournal = async () => {
       try {

@@ -27,11 +27,13 @@ const CreateJournal = () => {
     dayRating: "",
     date: "",
   });
-  //States for image files
+  //States for image files (used temporarily to extract file information ie name etc)
   const [file, setFile] = useState("");
-  const [image, setImage] = useState([]);
-  console.log(data.date);
-  console.log(typeof data.date);
+  //State for the image URLs to be sent to the backend
+  const [image, setImage] = useState([0, 0, 0]);
+  //State for saving the file name from the image uploads
+  const [name, setName] = useState(['', '', '']);
+  
 
   //Navigation Var
   const navigate = useNavigate();
@@ -73,8 +75,16 @@ const CreateJournal = () => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
 
+    //On reader onloadend, add the name to the name state and the image to the image state. The backend will cleanup any unused image array space
     reader.onloadend = () => {
-      setImage([...image, reader.result]);
+      //Setting each image in the array
+      const newImages = image.slice()
+      newImages[index] = reader.result
+      setImage(newImages)
+      //Setting the name of the images that were uploaded
+      const newName = name.slice()
+      newName[index] = file.name
+      setName(newName)
     };
     console.log(image);
   };
@@ -132,14 +142,6 @@ const CreateJournal = () => {
                     variant="filled"
                     onChange={handleChange}
                     value={data.promptOne}
-                    // validate={() => {
-                    //   if (
-                    //     user.username.length > 20 ||
-                    //     user.username.length < 5
-                    //   ) {
-                    //     return "Please enter a username between 5 and 20 characters";
-                    //   }
-                    // }}
                   />
                   <FormErrorMessage>{errors.promptOne}</FormErrorMessage>
                 </FormControl>
@@ -155,14 +157,6 @@ const CreateJournal = () => {
                     variant="filled"
                     onChange={handleChange}
                     value={data.promptTwo}
-                    // validate={() => {
-                    //   if (
-                    //     user.username.length > 20 ||
-                    //     user.username.length < 5
-                    //   ) {
-                    //     return "Please enter a username between 5 and 20 characters";
-                    //   }
-                    // }}
                   />
                   <FormErrorMessage>{errors.promptTwo}</FormErrorMessage>
                 </FormControl>
@@ -178,14 +172,6 @@ const CreateJournal = () => {
                     variant="filled"
                     onChange={handleChange}
                     value={data.prompThree}
-                    // validate={() => {
-                    //   if (
-                    //     user.username.length > 20 ||
-                    //     user.username.length < 5
-                    //   ) {
-                    //     return "Please enter a username between 5 and 20 characters";
-                    //   }
-                    // }}
                   />
                   <FormErrorMessage>{errors.promptOne}</FormErrorMessage>
                 </FormControl>
@@ -201,14 +187,6 @@ const CreateJournal = () => {
                     variant="filled"
                     onChange={handleChange}
                     value={data.improvement}
-                    // validate={() => {
-                    //   if (
-                    //     user.username.length > 20 ||
-                    //     user.username.length < 5
-                    //   ) {
-                    //     return "Please enter a username between 5 and 20 characters";
-                    //   }
-                    // }}
                   />
                   <FormErrorMessage>{errors.promptOne}</FormErrorMessage>
                 </FormControl>
@@ -216,52 +194,62 @@ const CreateJournal = () => {
                   <FormLabel htmlFor="Title" fontSize={fontSize}>
                     Frist Picture
                   </FormLabel>
-                  <Field
-                    as={Input}
-                    id="title"
-                    name="title"
-                    type="file"
-                    variant="filled"
-                    onChange={(e) => {
-                      setFile(e.target.files[0]);
-                      previewFile(e.target.files[0]);
-                    }}
-                    // value={file}
-                  />
+                  {name[0] ? (
+                    <p>{name[0]}</p>
+                  ) : (
+                    <Field
+                      as={Input}
+                      id="title"
+                      name="title"
+                      type="file"
+                      variant="filled"
+                      onChange={(e) => {
+                        setFile(e.target.files[0]);
+                        previewFile(e.target.files[0], 0);
+                      }}
+                    />
+                  )}
                 </FormControl>
+
                 <FormControl>
                   <FormLabel htmlFor="Title" fontSize={fontSize}>
                     Second Picture
                   </FormLabel>
-                  <Field
-                    as={Input}
-                    id="title"
-                    name="title"
-                    type="file"
-                    variant="filled"
-                    onChange={(e) => {
-                      setFile(e.target.files[0]);
-                      previewFile(e.target.files[0]);
-                    }}
-                    // value={file}
-                  />
+                  {name[1] ? (
+                    <p>{name[1]}</p>
+                  ) : (
+                    <Field
+                      as={Input}
+                      id="title"
+                      name="title"
+                      type="file"
+                      variant="filled"
+                      onChange={(e) => {
+                        setFile(e.target.files[0]);
+                        previewFile(e.target.files[0], 1);
+                      }}
+                    />
+                  )}
                 </FormControl>
                 <FormControl>
                   <FormLabel htmlFor="Title" fontSize={fontSize}>
                     Third Picture
                   </FormLabel>
-                  <Field
-                    as={Input}
-                    id="title"
-                    name="title"
-                    type="file"
-                    variant="filled"
-                    onChange={(e) => {
-                      setFile(e.target.files[0]);
-                      previewFile(e.target.files[0]);
-                    }}
-                    // value={file}
-                  />
+                  {name[2] ? (
+                    <p>{name[2]}</p>
+                  ) : (
+                    <Field
+                      as={Input}
+                      id="title"
+                      name="title"
+                      type="file"
+                      variant="filled"
+                      onChange={(e) => {
+                        setFile(e.target.files[0]);
+                        previewFile(e.target.files[0], 2);
+                      }}
+                    />
+                  )}
                 </FormControl>
                 <FormControl
                   isInvalid={!!errors.password && touched.password}
@@ -326,114 +314,6 @@ const CreateJournal = () => {
           className="p-4 p-md-5 border rounded-3 bg-light"
           onSubmit={handleSubmit}
         >
-          <div className="form-floating mb-3">
-            <input
-              type="text"
-              className="form-control"
-              name="title"
-              autoComplete="off"
-              onChange={handleChange}
-              required
-              placeholder="Title of your journal"
-            />
-            <label htmlFor="title">Title</label>
-          </div>
-          <div className="form-floating mb-3">
-            <input
-              type="text"
-              className="form-control"
-              name="promptOne"
-              autoComplete="off"
-              onChange={handleChange}
-              required
-              placeholder="Enter Positive Prompt 1"
-            />
-            <label htmlFor="username">Positive #1</label>
-          </div>
-          <div className="form-floating mb-3">
-            <input
-              type="text"
-              className="form-control"
-              name="promptTwo"
-              autoComplete="off"
-              onChange={handleChange}
-              required
-              placeholder="Enter Positive Prompt 2"
-            />
-            <label htmlFor="username">Positive #2</label>
-          </div>
-          <div className="form-floating mb-3">
-            <input
-              type="text"
-              className="form-control"
-              name="promptThree"
-              autoComplete="off"
-              onChange={handleChange}
-              required
-              placeholder="Enter Positive Prompt 3"
-            />
-            <label htmlFor="username">Positive #3</label>
-          </div>
-          <div className="form-floating mb-3">
-            <input
-              type="text"
-              className="form-control"
-              name="improvement"
-              autoComplete="off"
-              required
-              onChange={handleChange}
-              placeholder="Enter Improvement Prompt"
-            />
-            <label htmlFor="username">Daily Improvement</label>
-          </div>
-          <div className="mb-3">
-            <label htmlFor="imgUpload" className="form-label">
-              Image One
-            </label>
-            <input
-              className="form-control form-control-sm"
-              id="imageUpload"
-              type="file"
-              name="file"
-              accept="image/png, image/jpeg, image/jpg, image/PNG"
-              onChange={(e) => {
-                setFile(e.target.files[0]);
-                previewFile(e.target.files[0]);
-              }}
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="imgUpload" className="form-label">
-              Image Two
-            </label>
-            <input
-              className="form-control form-control-sm"
-              id="imageUpload"
-              type="file"
-              name="file"
-              accept="image/png, image/jpeg, image/jpg, image/PNG"
-              onChange={(e) => {
-                setFile(e.target.files[0]);
-                previewFile(e.target.files[0]);
-              }}
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="imgUpload" className="form-label">
-              Image Three
-            </label>
-            <input
-              className="form-control form-control-sm"
-              id="imageUpload"
-              type="file"
-              name="file"
-              accept="image/png, image/jpeg, image/jpg, image/PNG"
-              onChange={(e) => {
-                setFile(e.target.files[0]);
-                previewFile(e.target.files[0]);
-              }}
-            />
-          </div>
           <label for="customRange3" class="form-label">
             Example range
           </label>
