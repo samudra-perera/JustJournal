@@ -1,26 +1,33 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// import axios from "axios";
-import {useAxios} from '../hooks/useAxios'
-import axios from '../api/serverConnect'
+import { Card, CardBody, Text, Avatar, Flex } from "@chakra-ui/react";
+import { useAxios } from "../hooks/useAxios";
+import axios from "../api/serverConnect";
 
 const FollowerCard = (props) => {
   const { user } = props;
   const [userInfo, error, loading] = useAxios({
     axiosInstance: axios,
-    method: 'GET',
+    method: "GET",
     url: `/api/profile/userInfo/${user}`,
     requestConfig: {
-      withCredentials: true
-    }
-  })
+      withCredentials: true,
+    },
+  });
 
   return (
-    <div>
-      <Link to={`/profiles/${user}`}>{userInfo.userName}</Link>
-
-      <img src={userInfo.profilePic} />
-    </div>
+    <>
+      <Card>
+        <CardBody>
+          <Flex>
+            <Avatar src={userInfo.profilePic} />
+            <Link to={`/profiles/${user}`}>
+              <Text>{userInfo.userName}</Text>
+            </Link>
+          </Flex>
+        </CardBody>
+      </Card>
+    </>
   );
 };
 
