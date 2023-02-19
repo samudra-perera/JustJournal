@@ -23,13 +23,11 @@ const FollowerList = () => {
     return;
   } else {
     return (
-      <>
-        <div>
-          {followers.followers.map((follower) => {
-            return <FollowerCard key={follower} user={follower} />;
-          })}
-        </div>
-      </>
+      <SimpleGrid minChildWidth="250px" spacing={10}>
+        {followers.followers.map((follower) => {
+          return <FollowerCard key={follower} user={follower} />;
+        })}
+      </SimpleGrid>
     );
   }
 };

@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useAxios } from "../hooks/useAxios";
 import axios from "../api/serverConnect";
 import FollowerCard from "./FollowerCard";
+import { SimpleGrid } from "@chakra-ui/react";
 
 const FollowingList = () => {
   //Getting the ID from the URL params
@@ -22,11 +23,11 @@ const FollowingList = () => {
     return;
   } else {
     return (
-      <div>
+      <SimpleGrid minChildWidth="250px" spacing={10}>
         {following.following.map((following) => {
           return <FollowerCard key={following} user={following} />;
         })}
-      </div>
+      </SimpleGrid>
     );
   }
 };
