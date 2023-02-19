@@ -1,19 +1,27 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Formik, Field, Form } from "formik";
 import {
   Box,
   Button,
-  Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
   Input,
-  Text,
+  RadioGroup,
+  Radio,
+  Stack,
   Textarea,
   VStack,
+  Slider,
+  SliderMark,
+  SliderFilledTrack,
+  SliderThumb,
+  SliderTrack,
 } from "@chakra-ui/react";
+
+import { SingleDatepicker } from "chakra-dayzed-datepicker";
 
 const CreateJournal = () => {
   //States for the form inputs
@@ -24,16 +32,17 @@ const CreateJournal = () => {
     promptThree: "",
     improvement: "",
     isPublic: "0",
-    dayRating: "",
-    date: "",
   });
   //States for image files (used temporarily to extract file information ie name etc)
   const [file, setFile] = useState("");
   //State for the image URLs to be sent to the backend
   const [image, setImage] = useState([0, 0, 0]);
   //State for saving the file name from the image uploads
-  const [name, setName] = useState(['', '', '']);
-  
+  const [name, setName] = useState(["", "", ""]);
+  //State for DayRating
+  const [dayRating, setDayRating] = useState(3);
+  //Setting the state for the date
+  const [date, setDate] = useState(new Date())
 
   //Navigation Var
   const navigate = useNavigate();
@@ -51,8 +60,8 @@ const CreateJournal = () => {
           posPromptThree: data.promptThree,
           improvPrompt: data.improvement,
           isPublic: data.isPublic,
-          dayRating: data.dayRating,
-          date: data.date,
+          dayRating: dayRating,
+          date: date,
         },
         {
           withCredentials: true,
@@ -66,7 +75,6 @@ const CreateJournal = () => {
 
   //Submit Handler
   const handleSubmit = (e) => {
-    e.preventDefault();
     createJournal();
   };
 
@@ -78,13 +86,13 @@ const CreateJournal = () => {
     //On reader onloadend, add the name to the name state and the image to the image state. The backend will cleanup any unused image array space
     reader.onloadend = () => {
       //Setting each image in the array
-      const newImages = image.slice()
-      newImages[index] = reader.result
-      setImage(newImages)
+      const newImages = image.slice();
+      newImages[index] = reader.result;
+      setImage(newImages);
       //Setting the name of the images that were uploaded
-      const newName = name.slice()
-      newName[index] = file.name
-      setName(newName)
+      const newName = name.slice();
+      newName[index] = file.name;
+      setName(newName);
     };
     console.log(image);
   };
@@ -104,6 +112,12 @@ const CreateJournal = () => {
   //Style for the anchor tag (Link)
   const style = {
     color: "purple",
+  };
+
+  const labelStyles = {
+    mt: "2",
+    ml: "-2.5",
+    fontSize: "sm",
   };
 
   //Responsive font sizing
@@ -210,7 +224,6 @@ const CreateJournal = () => {
                     />
                   )}
                 </FormControl>
-
                 <FormControl>
                   <FormLabel htmlFor="Title" fontSize={fontSize}>
                     Second Picture
@@ -251,49 +264,63 @@ const CreateJournal = () => {
                     />
                   )}
                 </FormControl>
-                <FormControl
-                  isInvalid={!!errors.password && touched.password}
-                  isRequired="true"
-                >
-                  <FormLabel htmlFor="password" fontSize={fontSize}>
-                    Password
+                <FormControl isRequired='true'>
+                  <FormLabel htmlFor="isPublic" fontSize={fontSize}>
+                    Do you this Journal to be public?
                   </FormLabel>
-                  <Field
-                    as={Input}
-                    id="password"
-                    name="password"
-                    type="password"
-                    variant="filled"
-                    validate={() => {
-                      // return passwordValidation(user.password);
-                    }}
-                    onChange={handleChange}
-                    // value={user.password}
-                  />
-                  <FormErrorMessage>{errors.password}</FormErrorMessage>
+                  <RadioGroup defaultValue={data.isPublic}>
+                    <Stack spacing={5} direction="row" onChange={handleChange}>
+                      <Radio colorScheme="red" value="1" name="isPublic">
+                        Public
+                      </Radio>
+                      <Radio colorScheme="green" value="0" name="isPublic">
+                        Private
+                      </Radio>
+                    </Stack>
+                  </RadioGroup>
                 </FormControl>
-                <FormControl
-                  isInvalid={!!errors.matchPassword && touched.matchPassword}
-                  isRequired="true"
-                >
-                  <FormLabel htmlFor="matchPassword" fontSize={fontSize}>
-                    Confirm Password
+                <FormControl isRequired='true'>
+                  <FormLabel htmlFor="dayRating" fontSize={fontSize}>
+                    Rate your day for Bad to Great
                   </FormLabel>
-                  <Field
-                    as={Input}
-                    id="matchPassword"
-                    name="matchPassword"
-                    type="password"
-                    variant="filled"
-                    // validate={() => {
-                    //   if (user.matchPassword !== user.password) {
-                    //     return "Passwords do not match, please try again";
-                    //   }
-                    // }}
-                    onChange={handleChange}
-                    // value={user.matchPassword}
-                  />
-                  <FormErrorMessage>{errors.matchPassword}</FormErrorMessage>
+                  <Slider
+                    name="dayRating"
+                    id="dayRating"
+                    onChange={(v) => setDayRating(v)}
+                    min={0}
+                    max={6}
+                    defaultValue={dayRating}
+                  >
+                    <SliderMark value={0} {...labelStyles}>
+                      0
+                    </SliderMark>
+                    <SliderMark value={1} {...labelStyles}>
+                      1
+                    </SliderMark>
+                    <SliderMark value={2} {...labelStyles}>
+                      2
+                    </SliderMark>
+                    <SliderMark value={3} {...labelStyles}>
+                      3
+                    </SliderMark>
+                    <SliderMark value={4} {...labelStyles}>
+                      4
+                    </SliderMark>
+                    <SliderMark value={5} {...labelStyles}>
+                      5
+                    </SliderMark>
+                    <SliderMark value={6} {...labelStyles}>
+                      6
+                    </SliderMark>
+                    <SliderTrack>
+                      <SliderFilledTrack />
+                    </SliderTrack>
+                    <SliderThumb />
+                  </Slider>
+                </FormControl>
+                <FormControl isRequired='true'>
+                  <FormLabel>Journal Date: </FormLabel>
+                  <SingleDatepicker name="date" onDateChange={setDate} date={date} maxDate={new Date()}/>
                 </FormControl>
                 <Button
                   type="submit"
@@ -309,54 +336,6 @@ const CreateJournal = () => {
           )}
         </Formik>
       </Box>
-      <div>
-        <form
-          className="p-4 p-md-5 border rounded-3 bg-light"
-          onSubmit={handleSubmit}
-        >
-          <label for="customRange3" class="form-label">
-            Example range
-          </label>
-          <input
-            type="range"
-            class="form-range"
-            min="0"
-            max="6"
-            step="1"
-            id="customRange3"
-            name="dayRating"
-            onChange={handleChange}
-          ></input>
-          <div className="mb-3">
-            <label className="form-label">
-              Do you want to make your journal public?
-            </label>
-            <select
-              className="form-select"
-              aria-label="select example"
-              name="isPublic"
-              required
-              onChange={handleChange}
-            >
-              <option value="0" defaultValue={"0"}>
-                No
-              </option>
-              <option value="1">Yes</option>
-            </select>
-          </div>
-          <label for="startDate">Date of Journal: </label>
-          <input
-            id="startDate"
-            class="form-control"
-            type="date"
-            name="date"
-            onChange={handleChange}
-          />
-          <button className="w-100 btn btn-lg btn-primary" type="submit">
-            Create Entry
-          </button>
-        </form>
-      </div>
     </>
   );
 };
