@@ -14,6 +14,7 @@ const ProfileSchema = new mongoose.Schema({
   imageURL: {
     type: String,
     required: false,
+    default: null,
   },
   following: [{ type: mongoose.Schema.Types.ObjectId, ref: "Profile" }],
   followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "Profile" }],

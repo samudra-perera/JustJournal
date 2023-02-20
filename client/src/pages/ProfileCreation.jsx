@@ -5,7 +5,7 @@ import { Formik, Field, Form } from "formik";
 import {
   Box,
   Button,
-  Checkbox,
+  Textarea,
   Flex,
   FormControl,
   FormErrorMessage,
@@ -13,6 +13,7 @@ import {
   Input,
   VStack,
 } from "@chakra-ui/react";
+import HomeNav from "../components/HomeNav";
 
 const ProfileCreation = () => {
   //Setting the states (Turn into objects and reduce code clutter)
@@ -51,6 +52,8 @@ const ProfileCreation = () => {
   };
 
   //Helper function to set the image as a URL to send as a req.body instead of req.file
+  // This one is a bit different than the createJournal since it is a single image.
+  //Just get the file name from the state
   const previewFile = (file) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -73,16 +76,47 @@ const ProfileCreation = () => {
     setFile(file);
   }, [file]);
 
+  //Validation for the Character limits of the Journal
+  const charLimit = (str, num) => {
+    console.log(str.length);
+    if (str.length > num) {
+      return `The maximum allowable characters is ${num} characters`;
+    }
+  };
+
+  //Style for the anchor tag (Link)
+  const style = {
+    color: "purple",
+  };
+
+  //Responsive font sizing
+  const fontSize = { base: "xs", sm: "sm", md: "med", lg: "large" };
+
   return (
     <>
-      <Flex bg="gray.100" align="center" justify="center" h="100vh">
-        <Box bg="white" p={6} rounded="md" w={80}>
+      <HomeNav />
+      <Flex
+        align="center"
+        justify="center"
+        bgImg={
+          "https://res.cloudinary.com/dkrjwbr8w/image/upload/v1676418486/Doubs_foubci.png"
+        }
+        height="92vh"
+        bgSize="3000px"
+        bgPosition="center"
+      >
+        <Box bg="white" rounded="xl" w={[300, 400, 500]} p={[6, 9, 12]}>
           <Formik initialValues={user} onSubmit={handleSubmit}>
             {({ handleSubmit, errors, touched }) => (
               <Form onSubmit={handleSubmit}>
                 <VStack spacing={4} align="flex-start">
-                  <FormControl>
-                    <FormLabel htmlFor="email">First Name</FormLabel>
+                  <FormControl
+                    isRequired="true"
+                    isInvalid={!!errors.firstName && touched.firstName}
+                  >
+                    <FormLabel htmlFor="firstName" fontSize={fontSize}>
+                      First Name
+                    </FormLabel>
                     <Field
                       as={Input}
                       id="firstName"
@@ -91,10 +125,14 @@ const ProfileCreation = () => {
                       variant="filled"
                       onChange={handleChange}
                       value={user.firstName}
+                      validate={() => charLimit(user.firstName, 30)}
                     />
+                    <FormErrorMessage>{errors.firstName}</FormErrorMessage>
                   </FormControl>
-                  <FormControl>
-                    <FormLabel htmlFor="email">Last Name</FormLabel>
+                  <FormControl isRequired="true" isInvalid={!!errors.lastName && touched.lastName}>
+                    <FormLabel htmlFor="lastName" fontSize={fontSize}>
+                      Last Name
+                    </FormLabel>
                     <Field
                       as={Input}
                       id="lastName"
@@ -103,22 +141,30 @@ const ProfileCreation = () => {
                       variant="filled"
                       onChange={handleChange}
                       value={user.lastName}
+                      validate={() => charLimit(user.lastName, 30)}
                     />
+                    <FormErrorMessage>{errors.lastName}</FormErrorMessage>
                   </FormControl>
-                  <FormControl>
-                    <FormLabel htmlFor="email">Bio</FormLabel>
+                  <FormControl isInvalid={!!errors.bio && touched.bio}>
+                    <FormLabel htmlFor="bio" fontSize={fontSize}>
+                      Bio
+                    </FormLabel>
                     <Field
-                      as={Input}
+                      as={Textarea}
                       id="bio"
                       name="bio"
                       type="text"
                       variant="filled"
                       onChange={handleChange}
                       value={user.bio}
+                      validate={() => charLimit(user.bio, 150)}
                     />
+                    <FormErrorMessage>{errors.bio}</FormErrorMessage>
                   </FormControl>
                   <FormControl>
-                    <FormLabel htmlFor="email">Profile Picture</FormLabel>
+                    <FormLabel htmlFor="email" fontSize={fontSize}>
+                      Profile Picture
+                    </FormLabel>
                     <Field
                       as={Input}
                       id="bio"
@@ -131,7 +177,13 @@ const ProfileCreation = () => {
                       }}
                     />
                   </FormControl>
-                  <Button type="submit" colorScheme="green" w="full">
+                  <Button
+                    type="submit"
+                    bg="purple.400"
+                    w="full"
+                    color="white"
+                    variant="solid"
+                  >
                     Create Profile
                   </Button>
                 </VStack>
@@ -140,67 +192,6 @@ const ProfileCreation = () => {
           </Formik>
         </Box>
       </Flex>
-      <div>
-        <form
-          className="p-4 p-md-5 border rounded-3 bg-light"
-          onSubmit={handleSubmit}
-        >
-          <div className="form-floating mb-3">
-            <input
-              type="text"
-              className="form-control"
-              name="firstName"
-              autoComplete="off"
-              onChange={handleChange}
-              required
-              placeholder="Enter Positive Prompt 1"
-            />
-            <label htmlFor="username">First Name</label>
-          </div>
-          <div className="form-floating mb-3">
-            <input
-              type="text"
-              className="form-control"
-              name="lastName"
-              autoComplete="off"
-              onChange={handleChange}
-              required
-              placeholder="Enter Positive Prompt 2"
-            />
-            <label htmlFor="username">Last Name</label>
-          </div>
-          <div className="form-floating mb-3">
-            <input
-              type="text"
-              className="form-control"
-              name="bio"
-              autoComplete="off"
-              onChange={handleChange}
-              placeholder="Enter Positive Prompt 3"
-            />
-            <label htmlFor="username">Bio</label>
-          </div>
-          <div className="mb-3">
-            <label htmlFor="imgUpload" className="form-label">
-              Profile Picture
-            </label>
-            <input
-              className="form-control form-control-sm"
-              id="imageUpload"
-              type="file"
-              name="file"
-              accept="image/png, image/jpeg, image/jpg, image/PNG"
-              onChange={(e) => {
-                setFile(e.target.files[0]);
-                previewFile(e.target.files[0]);
-              }}
-            />
-          </div>
-          <button className="w-100 btn btn-lg btn-primary" type="submit">
-            Create Profile
-          </button>
-        </form>
-      </div>
     </>
   );
 };
