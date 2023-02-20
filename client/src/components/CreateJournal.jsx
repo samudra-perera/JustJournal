@@ -42,7 +42,7 @@ const CreateJournal = () => {
   //State for DayRating
   const [dayRating, setDayRating] = useState(3);
   //Setting the state for the date
-  const [date, setDate] = useState(new Date())
+  const [date, setDate] = useState(new Date());
 
   //Navigation Var
   const navigate = useNavigate();
@@ -109,6 +109,14 @@ const CreateJournal = () => {
     setFile(file);
   }, [file]);
 
+  //Validation for the Character limits of the Journal
+  const charLimit = (str, num) => {
+    console.log(str.length);
+    if (str.length > num) {
+      return `The maximum allowable characters is ${num} characters`;
+    }
+  };
+
   //Style for the anchor tag (Link)
   const style = {
     color: "purple",
@@ -130,7 +138,7 @@ const CreateJournal = () => {
           {({ handleSubmit, errors, touched }) => (
             <Form onSubmit={handleSubmit}>
               <VStack spacing={4} align="flex-start">
-                <FormControl isRequired="true">
+                <FormControl isRequired="true" isInvalid={!!errors.title && touched.title}>
                   <FormLabel htmlFor="Title" fontSize={fontSize}>
                     Title
                   </FormLabel>
@@ -142,9 +150,14 @@ const CreateJournal = () => {
                     variant="filled"
                     onChange={handleChange}
                     value={data.title}
+                    validate={() => charLimit(data.title, 70)}
                   />
+                  <FormErrorMessage>{errors.title}</FormErrorMessage>
                 </FormControl>
-                <FormControl isRequired="true">
+                <FormControl
+                  isRequired="true"
+                  isInvalid={!!errors.promptOne && touched.promptOne}
+                >
                   <FormLabel htmlFor="promptOne" fontSize={fontSize}>
                     Positive #1
                   </FormLabel>
@@ -156,10 +169,14 @@ const CreateJournal = () => {
                     variant="filled"
                     onChange={handleChange}
                     value={data.promptOne}
+                    validate={() => charLimit(data.promptOne, 500)}
                   />
                   <FormErrorMessage>{errors.promptOne}</FormErrorMessage>
                 </FormControl>
-                <FormControl isRequired="true">
+                <FormControl
+                  isRequired="true"
+                  isInvalid={!!errors.promptTwo && touched.promptTwo}
+                >
                   <FormLabel htmlFor="promptTwo" fontSize={fontSize}>
                     Positive #2
                   </FormLabel>
@@ -171,10 +188,14 @@ const CreateJournal = () => {
                     variant="filled"
                     onChange={handleChange}
                     value={data.promptTwo}
+                    validate={() => charLimit(data.promptTwo, 500)}
                   />
                   <FormErrorMessage>{errors.promptTwo}</FormErrorMessage>
                 </FormControl>
-                <FormControl isRequired="true">
+                <FormControl
+                  isRequired="true"
+                  isInvalid={!!errors.promptThree && touched.promptThree}
+                >
                   <FormLabel htmlFor="promptThree" fontSize={fontSize}>
                     Positive #3
                   </FormLabel>
@@ -185,11 +206,15 @@ const CreateJournal = () => {
                     type="text"
                     variant="filled"
                     onChange={handleChange}
-                    value={data.prompThree}
+                    value={data.promptThree}
+                    validate={() => charLimit(data.promptThree, 500)}
                   />
-                  <FormErrorMessage>{errors.promptOne}</FormErrorMessage>
+                  <FormErrorMessage>{errors.promptThree}</FormErrorMessage>
                 </FormControl>
-                <FormControl isRequired="true">
+                <FormControl
+                  isRequired="true"
+                  isInvalid={!!errors.improvement && touched.improvement}
+                >
                   <FormLabel htmlFor="improvement" fontSize={fontSize}>
                     What could I do better?
                   </FormLabel>
@@ -201,8 +226,9 @@ const CreateJournal = () => {
                     variant="filled"
                     onChange={handleChange}
                     value={data.improvement}
+                    validate={() => charLimit(data.improvement, 500)}
                   />
-                  <FormErrorMessage>{errors.promptOne}</FormErrorMessage>
+                  <FormErrorMessage>{errors.improvement}</FormErrorMessage>
                 </FormControl>
                 <FormControl>
                   <FormLabel htmlFor="Title" fontSize={fontSize}>
@@ -264,7 +290,7 @@ const CreateJournal = () => {
                     />
                   )}
                 </FormControl>
-                <FormControl isRequired='true'>
+                <FormControl isRequired="true">
                   <FormLabel htmlFor="isPublic" fontSize={fontSize}>
                     Do you this Journal to be public?
                   </FormLabel>
@@ -279,7 +305,7 @@ const CreateJournal = () => {
                     </Stack>
                   </RadioGroup>
                 </FormControl>
-                <FormControl isRequired='true'>
+                <FormControl isRequired="true">
                   <FormLabel htmlFor="dayRating" fontSize={fontSize}>
                     Rate your day for Bad to Great
                   </FormLabel>
@@ -318,9 +344,14 @@ const CreateJournal = () => {
                     <SliderThumb />
                   </Slider>
                 </FormControl>
-                <FormControl isRequired='true'>
+                <FormControl isRequired="true">
                   <FormLabel>Journal Date: </FormLabel>
-                  <SingleDatepicker name="date" onDateChange={setDate} date={date} maxDate={new Date()}/>
+                  <SingleDatepicker
+                    name="date"
+                    onDateChange={setDate}
+                    date={date}
+                    maxDate={new Date()}
+                  />
                 </FormControl>
                 <Button
                   type="submit"
