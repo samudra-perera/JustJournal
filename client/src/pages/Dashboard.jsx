@@ -5,6 +5,7 @@ import { Grid, GridItem } from "@chakra-ui/react";
 import Nav from "../components/Nav";
 import Profile from "../components/Profile";
 import SideNav from "../components/SideNav";
+import { Footer } from "../components/Footer";
 
 // Added Spinner on the parent profile element to stop incorrectly rendered children components
 //If a user created an account but did not create a profile yet reroute them to the profile page
@@ -24,16 +25,25 @@ const Dashboard = () => {
     getUser();
   });
   return (
-    <Grid templateColumns="repeat(6, 1fr)" bg="gray.50">
-      <GridItem as="aside" bg="purple.400" minHeight="100vh" p={5} colSpan="1">
-        <SideNav />
-      </GridItem>
-      <GridItem colSpan="5" as="main" p={7}>
-        <Nav />
-        {id ? <Profile userID={id} /> : <p>Spinner</p>}
-        {id ? <Outlet context={id} /> : <p>Spinner</p>}
-      </GridItem>
-    </Grid>
+    <>
+      <Grid templateColumns="repeat(6, 1fr)" bg="gray.50">
+        <GridItem
+          as="aside"
+          bg="purple.400"
+          minHeight="100vh"
+          p={5}
+          colSpan="1"
+        >
+          <SideNav />
+        </GridItem>
+        <GridItem colSpan="5" as="main" p={7}>
+          <Nav />
+          {id ? <Profile userID={id} /> : <p>Spinner</p>}
+          {id ? <Outlet context={id} /> : <p>Spinner</p>}
+        </GridItem>
+      </Grid>
+      <Footer/>
+    </>
   );
 };
 
