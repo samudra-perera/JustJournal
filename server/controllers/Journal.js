@@ -10,7 +10,7 @@ module.exports = {
   //POST
   //url/api/journal/createJournal
   createJournal: async (req, res) => {
-    console.log(req.sessionID)
+    console.log(req.sessionID);
     try {
       const {
         title,
@@ -25,20 +25,19 @@ module.exports = {
       } = req.body;
 
       //Check if there is a Journal that exists for the current date, if there is a Journal that exists already tell the user to pick a diff date
-      const findDate = await Journal.find({stringDate: date})
-      console.log(findDate)
-      if(findDate.length != 0) {
-        return res.json('There already exists a journal for this date')
+      const findDate = await Journal.find({ stringDate: date });
+      console.log(findDate);
+      if (findDate.length != 0) {
+        return res.json("There already exists a journal for this date");
       }
-
 
       //The image body is sent as an array and needs to be converted into the correct array format prior to saving in the MongoDB document store
       const result = [];
       const cloud = [];
       //Loop through the image array and upload each image onto cloudinary and save the URL and IDs in the result and cloud array
       for (let i = 0; i < image.length; i++) {
-        if(image[i] == 0) {
-          continue
+        if (image[i] == 0) {
+          continue;
         }
         result[i] = await cloudinary.uploader.upload(image[i]);
         cloud[i] = result[i].public_id;
@@ -59,8 +58,7 @@ module.exports = {
         likes: 0,
         moodState: dayRating,
         journalDate: date,
-        stringDate: date
-
+        stringDate: date,
       });
       console.log("Journal Entry has been created");
       res.json({ journal });
@@ -90,8 +88,8 @@ module.exports = {
         createAt: "desc",
       });
       //Find the profile information as well
-      const profile = await Profile.find({user: req.params.id})
-      res.json({journal: journals, profile: profile});
+      const profile = await Profile.find({ user: req.params.id });
+      res.json({ journal: journals, profile: profile });
     } catch (err) {
       console.log(err);
     }
@@ -161,5 +159,47 @@ module.exports = {
   removeLike: async (req, res) => {
     try {
     } catch (err) {}
+  },
+  //Search journals and followers and returns both
+  //GET
+  // api/journal/search/:id
+  searchJournals: async (req, res) => {
+    try {
+      const query = req.query.search;
+      const id = req.params.id;
+
+      //The Journal Query
+      const journal = await Journal.aggregate([
+        {
+          $search: {
+            index: "search-text",
+            text: {
+              query: query,
+              path: {
+                wildcard: "*",
+              },
+            },
+          },
+        },
+      ]);
+      //Filter search results for the journal based on the userID
+      //Obviously not very effecient, but the best we can do for right now 
+      //Most effective way is to query using the userID then search smaller collection subset
+      const result = journal.map(journal => {
+        if(journal.user == id) {
+          return journal
+        }
+      })
+
+      //The User Query
+
+      console.log(id)
+      console.log(result)
+      // console.log(journal);
+
+      return 1;
+    } catch (err) {
+      console.log(err);
+    }
   },
 };

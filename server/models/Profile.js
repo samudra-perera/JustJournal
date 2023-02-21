@@ -22,7 +22,8 @@ const ProfileSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
     required: true,
-  }
+  },
+  favourites: [{type: mongoose.Schema.Types.ObjectId, ref: 'Journal'}]
 });
 
 module.exports = mongoose.model("Profile", ProfileSchema);
