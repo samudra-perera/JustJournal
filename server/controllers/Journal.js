@@ -150,16 +150,6 @@ module.exports = {
       console.log(err);
     }
   },
-  addLike: async (req, res) => {
-    try {
-    } catch (err) {
-      console.log(err);
-    }
-  },
-  removeLike: async (req, res) => {
-    try {
-    } catch (err) {}
-  },
   //Search journals and followers and returns both
   //GET
   // api/journal/search/:id
@@ -167,6 +157,7 @@ module.exports = {
     try {
       const query = req.query.search;
       const id = req.params.id;
+      const profiles = [];
 
       //The Journal Query
       const journal = await Journal.aggregate([
@@ -183,21 +174,58 @@ module.exports = {
         },
       ]);
       //Filter search results for the journal based on the userID
-      //Obviously not very effecient, but the best we can do for right now 
+      //Obviously not very effecient, but the best we can do for right now
       //Most effective way is to query using the userID then search smaller collection subset
-      const result = journal.map(journal => {
-        if(journal.user == id) {
-          return journal
+      const result = journal.map((journal) => {
+        if (journal.user == id) {
+          return journal;
         }
-      })
+      });
 
       //The User Query
+      //Only need the userID to query for the profiles
+      const users = await User.aggregate([
+        {
+          $search: {
+            index: "userSearch",
+            text: {
+              query: query,
+              path: {
+                wildcard: "*",
+              },
+            },
+          },
+        },
+        {
+          $project: {
+            _id: 1,
+          },
+        },
+      ]);
 
-      console.log(id)
-      console.log(result)
-      // console.log(journal);
+      //Loop through the userIds and find all the corresponding profiles
+      for (let i = 0; i < users.length; i++) {
+        let temp = await Profile.find({
+          user: users[i]._id,
+        });
+        profiles.push(temp);
+      }
 
-      return 1;
+      return res.json({ profiles: profiles, journals: result });
+    } catch (err) {
+      console.log(err);
+    }
+  },
+
+  addToFavourites: async (req, res) => {
+    try {
+    } catch (err) {
+      console.log(err);
+    }
+  },
+
+  getFavourites: async (req, res) => {
+    try {
     } catch (err) {
       console.log(err);
     }
