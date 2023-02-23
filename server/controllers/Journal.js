@@ -230,4 +230,11 @@ module.exports = {
       console.log(err);
     }
   },
+  removeFavourites: async (req, res) => {
+    try {
+      
+    } catch (err) {
+      console.log(err)
+    }
+  }
 };

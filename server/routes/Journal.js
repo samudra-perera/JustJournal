@@ -12,6 +12,9 @@ router.delete('/deleteJournal/:id', ensureAuth, journalController.deleteJournal)
 router.post('/addComment/:id', ensureAuth, commentController.createComment)
 router.get('/getComments/:id', ensureAuth, commentController.getComment)
 router.delete('/deleteComment/:id', ensureAuth, commentController.deleteComment)
-router.get('/search/:id', journalController.searchJournals)
+router.get('/search/:id', ensureAuth, journalController.searchJournals)
+router.post('/addFav/:id', ensureAuth, journalController.addToFavourites)
+router.delete('/removeFav/:id', ensureAuth, journalController.removeFavourites)
+router.get('/getFav', ensureAuth, journalController.getFavourites)
 
 module.exports = router

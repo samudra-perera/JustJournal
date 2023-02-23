@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const SideNav = () => {
   return (
-    <List color="white" fontSize="1.2em" spacing={4}>
+    <List color="white" fontSize="1em" spacing={4}>
       <ListItem>
         <Link to="/dashboard">
         <ListIcon as={CalendarIcon} />
@@ -25,9 +25,9 @@ const SideNav = () => {
         </Link>
       </ListItem>
       <ListItem>
-        <Link>
+        <Link to='/dashboard/favourites'>
         <ListIcon as={AddIcon}/>
-          Liked Journals
+          Favourite Journals
         </Link>
       </ListItem>
       <ListItem>
