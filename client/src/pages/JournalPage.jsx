@@ -6,6 +6,7 @@ import JournalImages from "../components/JournalImages";
 import Nav from "../components/Nav";
 import axios from "../api/serverConnect";
 import { useAxios } from "../hooks/useAxios";
+import FavouritesButton from "../components/FavouritesButton";
 
 //GET Request to server in order to get the Journal Contents
 
@@ -37,6 +38,7 @@ const JournalPage = () => {
         <JournalImages props={journal.journal.imageURL} />
         <CreateComment id={id} />
         <CommentsList />
+        <FavouritesButton id={id}/>
       </div>
     );
   }

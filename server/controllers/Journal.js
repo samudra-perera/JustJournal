@@ -219,22 +219,35 @@ module.exports = {
 
   addToFavourites: async (req, res) => {
     try {
+      console.log(req.body._id);
     } catch (err) {
       console.log(err);
     }
   },
+  //Get the favourite Journals and returns the journal data
+  //GET
+  //api/
 
   getFavourites: async (req, res) => {
     try {
+      //Get the Profile and then grab the favourites array
+      const profile = await Profile.find({ user: req.params.id });
+      //Initialize array of favourites and iterate through the profile favourite journals
+      const favArray = profile[0].favourites;
+      const favourites = [];
+      for (let i = 0; i < favArray.length; i++) {
+        let temp = await Journal.findById(favArray[i])
+        favourites.push(temp)
+      }
+      return res.json({journal: favourites, profile: profile})
     } catch (err) {
       console.log(err);
     }
   },
   removeFavourites: async (req, res) => {
     try {
-      
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  },
 };
