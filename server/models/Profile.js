@@ -23,7 +23,7 @@ const ProfileSchema = new mongoose.Schema({
     default: true,
     required: true,
   },
-  favourites: [{type: mongoose.Schema.Types.ObjectId, ref: 'Journal'}]
+  favourites: [{type: mongoose.Schema.Types.ObjectId, ref: 'Journal'}],
 });
 
 module.exports = mongoose.model("Profile", ProfileSchema);

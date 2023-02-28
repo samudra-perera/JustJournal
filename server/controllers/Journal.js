@@ -73,7 +73,8 @@ module.exports = {
     try {
       const journal = await Journal.findById(req.params.id);
       const user = await User.findById(journal.user);
-      res.json({ journal: journal, user: user });
+      const profile = await Profile.find({user: req.user.id})
+      res.json({ journal: journal, user: user, profile: profile[0].favourites });
     } catch (err) {
       console.log(err);
     }
