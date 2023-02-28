@@ -22,7 +22,7 @@ router.delete(
 );
 router.get("/search/:id", ensureAuth, journalController.searchJournals);
 router.put("/addFav/:id", ensureAuth, journalController.addToFavourites);
-router.delete("/removeFav/:id", ensureAuth, journalController.removeFavourites);
+router.put("/removeFav/:id", ensureAuth, journalController.removeFavourites);
 router.get("/getFav/:id", ensureAuth, journalController.getFavourites);
 
 module.exports = router;

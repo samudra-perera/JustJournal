@@ -216,10 +216,18 @@ module.exports = {
       console.log(err);
     }
   },
-
+  //Add the journal to the favourites
+  //PUT
+  //api/journal/addFav/:id
   addToFavourites: async (req, res) => {
     try {
-      console.log(req.body._id);
+      const profile = await Profile.findOneAndUpdate({user: req.user.id}, {
+        $push:{favourites: req.params.id}
+      }, {
+        new: true
+      })
+      return res.json('Added journal to favourites')
+      
     } catch (err) {
       console.log(err);
     }
@@ -227,7 +235,6 @@ module.exports = {
   //Get the favourite Journals and returns the journal data
   //GET
   //api/
-
   getFavourites: async (req, res) => {
     try {
       //Get the Profile and then grab the favourites array
@@ -244,8 +251,17 @@ module.exports = {
       console.log(err);
     }
   },
+  //Remove the journal from the favourites
+  //PUT
+  //api/journal/removeFav/:id
   removeFavourites: async (req, res) => {
     try {
+      const profile = await Profile.findOneAndUpdate({user: req.user.id}, {
+        $pull: {favourites: req.params.id}
+      }, {
+        new: true
+      })
+      return res.json('Something something')
     } catch (err) {
       console.log(err);
     }

@@ -7,6 +7,8 @@ import Nav from "../components/Nav";
 import axios from "../api/serverConnect";
 import { useAxios } from "../hooks/useAxios";
 import FavouritesButton from "../components/FavouritesButton";
+import RemoveFavourites from '../components/RemoveFavourites'
+
 
 //GET Request to server in order to get the Journal Contents
 
@@ -39,6 +41,7 @@ const JournalPage = () => {
         <CreateComment id={id} />
         <CommentsList />
         <FavouritesButton id={id}/>
+        <RemoveFavourites id={id}/>
       </div>
     );
   }
