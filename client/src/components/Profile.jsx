@@ -25,7 +25,7 @@ const Profile = (props) => {
       withCredentials: true,
     },
   });
-  console.log(profile)
+  // console.log(profile)
   if (profile.profiles === undefined) {
     return;
   } else {

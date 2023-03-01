@@ -2,6 +2,7 @@ import { Tab, TabList, TabPanel, TabPanels, Tabs, Text } from "@chakra-ui/react"
 import React from "react";
 import Profile from "../components/Profile";
 import { Outlet, useOutletContext } from "react-router-dom";
+import AccountInformation from "../components/AccountInformation";
 
 const UserInformation = () => {
     const userID = useOutletContext()
@@ -22,7 +23,7 @@ const UserInformation = () => {
           <Outlet/>
         </TabPanel>
         <TabPanel>
-          <Text>2</Text>
+          <AccountInformation/>
         </TabPanel>
       </TabPanels>
     </Tabs>

@@ -149,6 +149,14 @@ module.exports = {
     } catch (err) {
       console.log(err)
     }    
+  },
+  getUser: async(req, res) => {
+    try {
+      const user = await User.findById(req.user.id)
+      return res.json(user)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
 };

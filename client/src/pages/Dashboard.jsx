@@ -38,7 +38,7 @@ const Dashboard = () => {
         </GridItem>
         <GridItem colSpan="5" as="main" p={7}>
           <Nav />
-          {id ? <Profile userID={id} /> : <p>Spinner</p>}
+          {/* {id ? <Profile userID={id} /> : <p>Spinner</p>} */}
           {id ? <Outlet context={id} /> : <p>Spinner</p>}
         </GridItem>
       </Grid>

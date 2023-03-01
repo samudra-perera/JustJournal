@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import CommentsList from "../components/CommentsList";
 import CreateComment from "../components/CreateComment";
@@ -9,12 +9,8 @@ import { useAxios } from "../hooks/useAxios";
 import FavouritesButton from "../components/FavouritesButton";
 import RemoveFavourites from "../components/RemoveFavourites";
 
-//GET Request to server in order to get the Journal Contents
-
 const JournalPage = () => {
   const { id } = useParams();
-  //This state determins the render state of the add and remove from favourites button
-  const [include, setInclude] = useState(true);
   const [journal, error, loading] = useAxios({
     axiosInstance: axios,
     method: "GET",
@@ -23,11 +19,6 @@ const JournalPage = () => {
       withCredentials: true,
     },
   });
-
-  //
-  const renderFunction = (arr, id) => {
-    return !arr.includes(id)
-  }
 
   if (journal.journal == undefined) {
     return;
@@ -45,7 +36,7 @@ const JournalPage = () => {
         <JournalImages props={journal.journal.imageURL} />
         <CreateComment id={id} />
         <CommentsList />
-        {renderFunction(journal.profile, id) ? <FavouritesButton id={id} /> : <RemoveFavourites id={id} />}
+        {!journal.profile.includes(id) ? <FavouritesButton id={id} /> : <RemoveFavourites id={id} />}
       </div>
     );
   }
