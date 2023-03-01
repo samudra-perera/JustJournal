@@ -15,7 +15,7 @@ const AccountInformation = () => {
   console.log(user);
   return (
     <>
-      <Stack>
+      <Stack spacing={2}>
         <Box>
           <Text fontSize="md" as='b'>Username: </Text>
           <Text fontSize="md">{user.userName}</Text>

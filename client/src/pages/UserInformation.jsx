@@ -8,7 +8,7 @@ const UserInformation = () => {
     const userID = useOutletContext()
     console.log(userID)
   return (
-    <Tabs mt="40px" p="20px" colorScheme="purple" variant="enclosed">
+    <Tabs mt="10px" p="20px" colorScheme="purple" variant="enclosed">
       <TabList>
         <Tab _selected={{ color: "white", bg: "purple.400" }}>
           Profile Information

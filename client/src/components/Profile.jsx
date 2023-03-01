@@ -1,9 +1,10 @@
 //This component contains the profile section of the user
 import React from "react";
 import { useAxios } from "../hooks/useAxios";
-import axios from '../api/serverConnect'
+import axios from "../api/serverConnect";
 import { Link } from "react-router-dom";
 import FollowButton from "./FollowButton";
+import { Avatar, Box, Center, Flex, Heading, Spacer } from "@chakra-ui/react";
 
 const Profile = (props) => {
   const { userID } = props;
@@ -30,36 +31,37 @@ const Profile = (props) => {
     return;
   } else {
     return (
-      <div>
-        <div className="card border-primary mb-3">
-          <div className="card-header">
-            <img
-              src={profile.profiles.imageURL}
-              className="img-thumbnail"
-              alt="..."
-            />
-          </div>
-          <div className="card-body text-primary">
-            <p className="card-text">
+      <>
+        <Center py={6}>
+          <Box
+            maxW="500px"
+            w="full"
+            rounded="xl"
+            p={6}
+            textAlign="center"
+            border="1px"
+            borderColor="gray.200"
+          >
+            <Avatar src={profile.profiles.imageURL} size="2xl" mb={6} />
+            <Heading as="h3" size={"lg"}>
               {profile.profiles.firstName} {profile.profiles.lastName}
-            </p>
-            <p>
+            </Heading>
+            <Flex mt={4}>
               <Link to={`followers/${profile.profiles._id}`}>
-                Followers: {profile.profiles.followers.length} <br />
+                Followers: {profile.profiles.followers.length}
               </Link>
+              <Spacer />
               <Link to={`following/${profile.profiles._id}`}>
-                Following: {profile.profiles.following.length} <br />
+                Following: {profile.profiles.following.length}
               </Link>
-              Entries: {profile.numOfJournals}
-            </p>
-          </div>
-          <FollowButton
-            id={profile.profiles._id}
-            followers={profile.profiles.followers}
-            loggedInID={loggedInID}
-          />
-        </div>
-      </div>
+              <Spacer />
+              <Link to={`followers/${profile.profiles._id}`}>
+                Entries: {profile.numOfJournals}
+              </Link>
+            </Flex>
+          </Box>
+        </Center>
+      </>
     );
   }
 };
