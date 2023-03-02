@@ -12,7 +12,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 
-const SideNav = () => {
+const SideNav = (props) => {
+  const {id} = props
   const getLogout = async () => {
     try {
       const res = await axios.get(process.env.REACT_APP_API_URL + "/logout", {
@@ -69,7 +70,7 @@ const SideNav = () => {
       <ListItem>
         <Link>
           <ListIcon as={SearchIcon} />
-          <SearchBar/>
+          <SearchBar id={id}/>
         </Link>
       </ListItem>
       <ListItem>

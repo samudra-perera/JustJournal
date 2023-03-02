@@ -1,32 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation, useOutletContext } from "react-router-dom";
 import axios from "axios";
+import { useEffect } from "react";
+import { Heading, Text } from "@chakra-ui/react";
+import JournalCard from "./JournalCard";
 
 const SearchResults = () => {
+  
   //useLocation is used to take in the date sent from the searchbar via useNavigate()
   const { state } = useLocation();
-  //id is taken from useOutletContext
-  const id = useOutletContext();
-
-  //Timeout is called to allow the component to not call the search request on render
-  const timeOut = setTimeout(() => {
-    const getSearch = async () => {
-      try {
-        const res = await axios.get(
-          process.env.REACT_APP_API_URL +
-            `/api/journal/search/${id}?search=${state}`,
-          {
-            withCredentials: true,
-          }
-        );
-        console.log(res);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getSearch();
-  }, 1000);
-  return <div>SearchResults</div>;
+    console.log(state)
+      return (
+        <>
+          {/* <Heading>Journals</Heading>
+          {data.journals.length === 0 ? (
+            <Text>No Journals</Text>
+          ) : (
+            data.journals.map((journal) => {
+              return (
+                <JournalCard
+                  createdAt={journal.createdAt}
+                  title={journal.title}
+                  posPromptOne={journal.posPromptOne}
+                  key={journal._id}
+                  id={journal._id}
+                  firstName={data.profile[0].firstName}
+                  lastName={data.profile[0].lastName}
+                  profileImage={data.profile[0].imageURL}
+                />
+              );
+            })
+          )}
+          <Heading>Users</Heading>
+          {data.profiles.length === 0 ? (
+            <Text>No Journals</Text>
+          ) : (
+            data.profile.map((user) => {
+                return <p>{user}</p>
+            })
+          )} */}
+        </>
+      );
+  
 };
 
 export default SearchResults;

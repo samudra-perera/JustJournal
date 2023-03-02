@@ -36,7 +36,7 @@ const Dashboard = () => {
           colSpan="1"
           maxWidth="20vw"
         >
-          <SideNav />
+          <SideNav id={id}/>
         </GridItem>
         <GridItem colSpan="5" as="main" p={7}>
           {id ? <Outlet context={id} /> : <p>Spinner</p>}
