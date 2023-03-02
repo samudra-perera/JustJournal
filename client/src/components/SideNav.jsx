@@ -1,8 +1,16 @@
 import React from "react";
-import { AddIcon, CalendarIcon, ViewIcon, AtSignIcon, ArrowForwardIcon } from "@chakra-ui/icons";
-import { Heading, List, ListItem, ListIcon, Button } from "@chakra-ui/react";
+import {
+  AddIcon,
+  CalendarIcon,
+  ViewIcon,
+  AtSignIcon,
+  ArrowForwardIcon,
+  SearchIcon
+} from "@chakra-ui/icons";
+import { Heading, List, ListItem, ListIcon } from "@chakra-ui/react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import SearchBar from "./SearchBar";
 
 const SideNav = () => {
   const getLogout = async () => {
@@ -59,8 +67,14 @@ const SideNav = () => {
         </Link>
       </ListItem>
       <ListItem>
+        <Link>
+          <ListIcon as={SearchIcon} />
+          <SearchBar/>
+        </Link>
+      </ListItem>
+      <ListItem>
         <Link to="/" onClick={getLogout}>
-        <ListIcon as={ArrowForwardIcon} />
+          <ListIcon as={ArrowForwardIcon} />
           Logout
         </Link>
       </ListItem>

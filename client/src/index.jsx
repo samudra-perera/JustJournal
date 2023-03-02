@@ -19,6 +19,7 @@ import HowToComponent from "./components/HowToComponent";
 import { ChakraProvider } from "@chakra-ui/react";
 import UserInformation from "./pages/UserInformation";
 import FavouriteJournals from "./components/FavouriteJournals";
+import SearchResults from "./components/SearchResults";
 
 const router = createBrowserRouter([
   {
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
       {
         path: 'favourites', 
         element: <FavouriteJournals/>
+      },
+      {
+        path: 'searchResults',
+        element: <SearchResults/>
       },
       // This is made redundant because the user information tab is gonna handle these routes
       // {
