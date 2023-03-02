@@ -34,13 +34,11 @@ const Dashboard = () => {
           minHeight="100vh"
           p={5}
           colSpan="1"
-          maxWidth='20vw'
+          maxWidth="20vw"
         >
-          <SideNav/>
+          <SideNav />
         </GridItem>
         <GridItem colSpan="5" as="main" p={7}>
-          {/* <Nav /> */}
-          {/* {id ? <Profile userID={id} /> : <p>Spinner</p>} */}
           {id ? <Outlet context={id} /> : <p>Spinner</p>}
         </GridItem>
       </Grid>
