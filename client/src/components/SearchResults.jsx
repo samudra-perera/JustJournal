@@ -1,47 +1,45 @@
 import React, { useState } from "react";
 import { useLocation, useOutletContext } from "react-router-dom";
-import axios from "axios";
+import { useAxios } from "../hooks/useAxios";
+import axios from "../api/serverConnect";
 import { useEffect } from "react";
 import { Heading, Text } from "@chakra-ui/react";
 import JournalCard from "./JournalCard";
 
 const SearchResults = () => {
-  
   //useLocation is used to take in the date sent from the searchbar via useNavigate()
   const { state } = useLocation();
-    console.log(state)
-      return (
-        <>
-          {/* <Heading>Journals</Heading>
-          {data.journals.length === 0 ? (
-            <Text>No Journals</Text>
-          ) : (
-            data.journals.map((journal) => {
-              return (
-                <JournalCard
-                  createdAt={journal.createdAt}
-                  title={journal.title}
-                  posPromptOne={journal.posPromptOne}
-                  key={journal._id}
-                  id={journal._id}
-                  firstName={data.profile[0].firstName}
-                  lastName={data.profile[0].lastName}
-                  profileImage={data.profile[0].imageURL}
-                />
-              );
-            })
-          )}
-          <Heading>Users</Heading>
-          {data.profiles.length === 0 ? (
-            <Text>No Journals</Text>
-          ) : (
-            data.profile.map((user) => {
-                return <p>{user}</p>
-            })
-          )} */}
-        </>
-      );
-  
+
+  //id is taken from useOutletContext
+  const id = useOutletContext();
+
+  const [data, error, loading] = useAxios({
+    axiosInstance: axios,
+    method: "GET",
+    url: `/api/journal/search/${id}?search=${state}`,
+    requestConfig: {
+      withCredentials: true,
+    },
+  });
+
+  console.log(data.profiles);
+
+  if (loading) {
+    return <p>Loading</p>;
+  } else {
+    return (
+      <>
+        <Heading>Journals</Heading>
+
+        <Heading>Users</Heading>
+        {data.profiles[0].length === 0 ? (
+          <p>No Users</p>
+        ) : (
+          <Heading>Found one</Heading>
+        )}
+      </>
+    );
+  }
 };
 
 export default SearchResults;

@@ -11,14 +11,10 @@ import {
   ModalCloseButton,
   Input,
 } from "@chakra-ui/react";
-import axios from "axios";
+
 import { Link, useNavigate } from "react-router-dom";
 
-const SearchBar = (props) => {
-  //State for the response data
-  const [data, setData] = useState([]);
-  //id is the loggedin user, drilled in from the Dashboard component
-  const { id } = props;
+const SearchBar = () => {
   //Setting the state of the search params
   const [search, setSearch] = useState("");
   //useDisclosure is the custom hook that handles the modal in ChakraUI
@@ -26,27 +22,11 @@ const SearchBar = (props) => {
   //Navigate is going to be used once the search state is set and the button is clicked
   const navigate = useNavigate();
 
-  //On the search submission route to the search component and send along the search request data to the Results components
+  //On the search submission route to the search component and send along the search query as well
   const clickHandler = () => {
-    const getSearch = async () => {
-      try {
-        const res = await axios.get(
-          process.env.REACT_APP_API_URL +
-            `/api/journal/search/${id}?search=${search}`,
-          {
-            withCredentials: true,
-          }
-        );
-        setData(res.data);
-        console.log(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getSearch();
-    navigate("/dashboard/searchResults", { state: data });
-    onClose();
-  };
+    navigate('/dashboard/searchResults', {state: search})
+    onClose()
+  }
 
   return (
     <>
@@ -58,12 +38,7 @@ const SearchBar = (props) => {
           <ModalHeader>Search</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
-            <Input
-              type="text"
-              placeholder="Search journals or users"
-              name="search"
-              onChange={(e) => setSearch(e.target.value)}
-            ></Input>
+            <Input type='text' placeholder="Search journals or users" name="search" onChange={(e)=>setSearch(e.target.value)}></Input>
           </ModalBody>
 
           <ModalFooter>
