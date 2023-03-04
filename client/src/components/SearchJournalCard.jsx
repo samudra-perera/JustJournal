@@ -20,14 +20,11 @@ const styles = {
   maxWidth: "18rem",
 };
 
-const JournalCard = (props) => {
+const SearchJournalCard = (props) => {
   const {
     title,
     posPromptOne,
     id,
-    firstName,
-    lastName,
-    profileImage,
   } = props;
 
   //Delete functionality works however need to refresh in order to see the update
@@ -50,16 +47,10 @@ const JournalCard = (props) => {
       <CardHeader>
         <Flex>
           <Box p={2}>
-            <Image borderRadius="full" boxSize="50px" src={profileImage} />
-          </Box>
-          <Box p={2}>
             <Link to={`/journals/${id}`}>
               <Heading as="h3" size="sm">
                 {title}
               </Heading>
-              <Text size='sm'>
-                By: {firstName} {lastName}
-              </Text>
             </Link>
           </Box>
         </Flex>
@@ -90,4 +81,4 @@ const JournalCard = (props) => {
   );
 };
 
-export default JournalCard;
+export default SearchJournalCard;

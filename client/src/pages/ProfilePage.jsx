@@ -10,7 +10,6 @@ const ProfilePage = () => {
   const { id } = useParams();
   return (
     <div>
-      <Nav/>
       <Profile userID={id} />
       This is the profile page to be of the mans
       <JournalList propID={id} />

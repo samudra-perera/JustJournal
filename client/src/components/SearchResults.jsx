@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { useLocation, useOutletContext } from "react-router-dom";
 import axios from "axios";
 import { useEffect } from "react";
-import { Heading, Text } from "@chakra-ui/react";
-import JournalCard from "./JournalCard";
+import { Heading, SimpleGrid, Text } from "@chakra-ui/react";
+import SearchJournalCard from "./SearchJournalCard";
+
 
 const SearchResults = () => {
   //State to store the response from the server
@@ -37,9 +38,20 @@ const SearchResults = () => {
   return (
     <>
         <Heading>Journals</Heading>
-        {journals.length === 0 ? <p>No Journals</p> : <p>Found ones</p>}
+        {journals.length === 0 ? <p>Could not find any journals with that search</p> : 
+        (
+            <SimpleGrid minChildWidth="250px" spacing={10}>
+                {
+                    journals.map(journal => {
+                        return (
+                            <SearchJournalCard title={journal.title} id={journal._id}/>
+                        )
+                    })
+                }
+            </SimpleGrid>
+        )}
         <Heading>Users</Heading>
-        {profiles.length === 0 ? <p>No Journals</p> : <p>Found ones</p>}
+        {profiles.length === 0 ? <p>Could not find any users with that username</p> : <p>Found ones</p>}
     </>
   )
 };

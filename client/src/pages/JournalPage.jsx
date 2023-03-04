@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import CommentsList from "../components/CommentsList";
 import CreateComment from "../components/CreateComment";
 import JournalImages from "../components/JournalImages";
-import Nav from "../components/Nav";
 import axios from "../api/serverConnect";
 import { useAxios } from "../hooks/useAxios";
 import FavouritesButton from "../components/FavouritesButton";
@@ -25,7 +24,6 @@ const JournalPage = () => {
   } else {
     return (
       <div>
-        <Nav />
         <h3>{journal.journal.title}</h3>
         <span>{journal.journal.createdAt}</span>
         <span> By: {journal.user.userName}</span>
